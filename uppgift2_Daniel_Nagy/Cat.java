@@ -2,19 +2,24 @@ package uppgift2_Daniel_Nagy;
 
 public class Cat {
 
-	private String name;
-	private String breed;
+	String name;
+	String breed;
 
 	public Cat(String _name, String _breed) {
 		name = _name;
 		breed = _breed;
 	}
 
-	String GetName() {
+	String getName() {
 		return name;
 	}
 
-	String GetBreed() {
+	String getBreed() {
 		return breed;
+	}
+
+	String getOwnerName() {
+		Matte matteInCat = new Matte("Owner");
+		return matteInCat.name;
 	}
 }
