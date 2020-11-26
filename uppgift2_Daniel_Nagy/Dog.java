@@ -8,7 +8,6 @@ public class Dog {
 		this.name = name;
 		this.breed = breed;
 	}
-
 	String GetName() {
 		return name;
 	}
@@ -24,7 +23,6 @@ public class Dog {
 	public void setBreed(String Breed) {
 		this.breed = Breed;
 	}
-
 	public String toString() {
 		return String.format(name, breed);
 	}

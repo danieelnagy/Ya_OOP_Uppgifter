@@ -3,18 +3,17 @@ package uppgift2_Daniel_Nagy;
 public class Matte {
 
 	String name;
-	String catName = "HisCat";
-	Cat mattesCat = new Cat(catName, "Perser");
+	Cat mattesCat = new Cat("HisCat", "Perser");
 
 	public Matte(String name) {
 		this.name = name;
 	}
 
 	String GetCatName() {
-		return catName;
+		return mattesCat.name;
 	}
 
 	String GetInfo() {
-		return name + " " + mattesCat.GetName() + " " + mattesCat.GetBreed();
+		return name + " " + mattesCat.getName() + " " + mattesCat.getBreed();
 	}
 }

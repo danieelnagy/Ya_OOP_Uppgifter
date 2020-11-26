@@ -5,10 +5,10 @@ public class DemoDogCat {
 	public static void main(String[] args) {
 
 		// Uppgift 1
-		Cat cat = new Cat("Aloy", "Grumpy");
+		Cat cat = new Cat("AloyCat", "Grumpy");
 		Dog dog = new Dog("Daisy", "Yorkie");
 		System.out.println("Uppgift 1:\n");
-		System.out.println(cat.GetName() + " " + cat.GetBreed() + "\n" + dog.GetName() + " " + dog.GetBreed() + "\n");
+		System.out.println(cat.name + " " + cat.breed + "\n" + dog.name + " " + dog.breed + "\n");
 
 		// Uppgift 2
 		Matte matte = new Matte("Jonas");
@@ -23,7 +23,7 @@ public class DemoDogCat {
 
 		// Uppgift 4
 		System.out.println("\nUppgift 4:\n");
-		System.out.println(matte.name + " is the owner of " + matte.catName);
+		System.out.println(cat.getOwnerName() + " is the owner of " + matte.GetCatName());
 	}
 
 }
