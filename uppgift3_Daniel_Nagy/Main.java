@@ -9,6 +9,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ContentDisplay;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
@@ -20,7 +21,7 @@ import javafx.stage.Stage;
 public class Main extends Application {
 	
 	Stage stage;
-	//Buttons buttons = new Buttons();
+	private GridLayOut grid;
 	
 	public static void main(String[] args) {
 		launch(args);
@@ -29,39 +30,36 @@ public class Main extends Application {
 	@Override
 	
 	public void start(Stage primaryStage) throws Exception {
+		grid = new GridLayOut();
 		stage = primaryStage;
 		stage.setTitle("Stoppuret");
-		
-		//Grid styles
-		GridPane grid = new GridPane();
-		grid.setMinSize(400, 200);
-		grid.setGridLinesVisible(true);
-		grid.setPadding(new Insets(15, 15, 15, 15));
-		grid.setVgap(5); 
-	    grid.setHgap(5); 
-		grid.setAlignment(Pos.CENTER);
-        final int numCols = 1;
-        final int numRows = 4;
-        for (int i = 0; i < numCols; i++) {
-            ColumnConstraints colConst = new ColumnConstraints();
-            colConst.setPercentWidth(100 / numCols);
-            grid.getColumnConstraints().add(colConst);
-        }
-        for (int i = 0; i < numRows; i++) {
-            RowConstraints rowConst = new RowConstraints();
-            rowConst.setPercentHeight(100 / numRows);
-            grid.getRowConstraints().add(rowConst);         
-        }
 		//Label
 		Label timerLabel = new Label();
 		timerLabel.setText("BLABLABASDASDWASD");
+		Label timerLabel1 = new Label();
+		timerLabel1.setText("BLABLABASDASDWASD");
+		Label timerLabel2 = new Label();
+		timerLabel2.setText("BLABLABASDASDWASD");
+		Label timerLabel3 = new Label();
+		timerLabel3.setText("BLABLABASDASDWASD");
+		Label timerLabel4 = new Label();
+		timerLabel4.setText("BLABLABASDASDWASD");
 		//timerLabel.setPadding(new Insets(0, 0, 0, 185));
 		
 		//Button
+		/*
 		Button btnStartStop = new Button("Start/Stop");
 		btnStartStop.getStyleClass().add("btnStartStop");
-		grid.getChildren().addAll(timerLabel,btnStartStop);
+		grid.add(timerLabel, 0,0);
+		grid.add(timerLabel1, 0,1);
+		grid.add(timerLabel2, 0,2);
+		grid.add(timerLabel3, 0,1);
+		grid.add(timerLabel4, 0,2);
+		grid.add(btnStartStop, 0, 0);
 		GridPane.setHalignment(btnStartStop, HPos.RIGHT);
+		GridPane.setHalignment(timerLabel3, HPos.RIGHT);
+		GridPane.setHalignment(timerLabel4, HPos.RIGHT);
+		*/
 		
 		
 		//grid.getChildren().addAll(timerLabel,btnStartStop);
@@ -91,7 +89,7 @@ public class Main extends Application {
 		vboxTwo.setPadding(new Insets(25,50,25,50));
 		hbox.getChildren().addAll(vbox,vboxTwo);
 		*/
-		Scene scene = new Scene(grid);
+		Scene scene = new Scene(grid.getGrid());
 		/*
 		//Elements styles
 		Button btn = new Button("WWWWWWWWWWWW");

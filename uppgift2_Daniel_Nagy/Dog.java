@@ -1,8 +1,8 @@
 package uppgift2_Daniel_Nagy;
 
 public class Dog {
-	private String name;
-	private String breed;
+	String name;
+	String breed;
 
 	public Dog(String name, String breed) {
 		this.name = name;
