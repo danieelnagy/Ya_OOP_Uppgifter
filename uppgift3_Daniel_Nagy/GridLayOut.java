@@ -1,5 +1,6 @@
 package uppgift3_Daniel_Nagy;
 
+import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.layout.ColumnConstraints;
@@ -7,6 +8,19 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.RowConstraints;
 
 class GridLayOut {
+	
+	private Buttons btn = new Buttons();
+	/*
+	grid.add(timerLabel, 0,0);
+	grid.add(timerLabel1, 0,1);
+	grid.add(timerLabel2, 0,2);
+	grid.add(timerLabel3, 0,1);
+	grid.add(timerLabel4, 0,2);
+	grid.add(btnStartStop, 0, 0);
+	GridPane.setHalignment(btnStartStop, HPos.RIGHT);
+	GridPane.setHalignment(timerLabel3, HPos.RIGHT);
+	GridPane.setHalignment(timerLabel4, HPos.RIGHT);
+	*/
 	
 	private GridPane grid;
 	private int numCols;
@@ -20,6 +34,8 @@ class GridLayOut {
 	private void Grid()
 	{
 		grid = new GridPane();
+		grid.add(btn.getButton(), 0, 0);
+		GridPane.setHalignment(btn.getButton(), HPos.RIGHT);
 		grid.setMinSize(400, 200);
 		grid.setGridLinesVisible(true);
 		grid.setPadding(new Insets(15, 15, 15, 15));
