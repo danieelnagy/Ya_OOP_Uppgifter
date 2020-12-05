@@ -34,9 +34,9 @@ public class Main extends Application {
 		stage = primaryStage;
 		stage.setTitle("Stoppuret");
 		Scene scene = new Scene(grid.getGrid());
-		// scene.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
 		stage.setScene(scene);
 		primaryStage.show();
 
 	}
+	
 }
