@@ -20,7 +20,7 @@ import javafx.stage.Stage;
 
 public class Main extends Application {
 
-	Stage stage;
+	private Stage stage;
 	private GridLayOut grid;
 
 	public static void main(String[] args) {
@@ -38,5 +38,5 @@ public class Main extends Application {
 		primaryStage.show();
 
 	}
-	
+
 }

@@ -10,6 +10,7 @@ import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.beans.property.IntegerProperty;
@@ -17,19 +18,14 @@ import javafx.beans.property.SimpleIntegerProperty;
 
 class Elements {
 
-	Button btnStart;
-	Button btnStop;
-	Label timerLabel;
-	Label dateLabel;
-	SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd 'at' HH:mm:ss z");
-	Date date = new Date(System.currentTimeMillis());
-	private long startTime; // Start time of timer.
-	// (Time is measured in milliseconds.)
-
-	private boolean running; // True when the timer is running.
-
-	private AnimationTimer timer; // Used to update the timer to show
-	// the number of seconds that have passed.
+	private Button btnStart;
+	private Button btnStop;
+	private Label timerLabel;
+	private Label dateLabel;
+	private SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd 'at' HH:mm:ss z");
+	private Date date = new Date(System.currentTimeMillis());
+	private long startTime;
+	private AnimationTimer timer;
 
 	public Elements() {
 		styles();
@@ -73,9 +69,9 @@ class Elements {
 		});
 		btnStop.setOnAction((event) -> {
 			timer.stop();
-            long endTime = System.currentTimeMillis();
-            double seconds = (endTime - startTime) / 1000.0;
-			dateLabel.setText("Date: " + formatter.format(date) + "\n"+ String.format("Time: %1.3f seconds", seconds));
+			long endTime = System.currentTimeMillis();
+			double seconds = (endTime - startTime) / 1000.0;
+			dateLabel.setText("Date: " + formatter.format(date) + "\n" + String.format("Time: %1.3f seconds", seconds));
 		});
 	}
 }
