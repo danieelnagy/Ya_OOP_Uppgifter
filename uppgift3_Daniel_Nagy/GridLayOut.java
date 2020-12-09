@@ -25,11 +25,14 @@ class GridLayOut {
 	private void GridStyles() {
 		grid = new GridPane();
 		grid.add(elements.getTimeLabel(), 0, 0);
-		grid.add(elements.getStartButton(), 0, 0);
-		grid.add(elements.getStopButton(), 0, 1);
-		grid.add(elements.getDateLabel(), 0, 2);
-		GridPane.setHalignment(elements.getStartButton(), HPos.RIGHT);
-		GridPane.setHalignment(elements.getStopButton(), HPos.CENTER);
+		grid.add(elements.getSavedTimes(), 0, 0);
+		grid.add(elements.getStartButton(), 0, 1);
+		grid.add(elements.getClearButton(), 0, 2);
+		grid.add(elements.getDateLabel(), 0, 3);
+		grid.add(elements.getSaveLabel(), 0, 4);
+		GridPane.setHalignment(elements.getStartButton(), HPos.CENTER);
+		GridPane.setHalignment(elements.getSaveLabel(), HPos.CENTER);
+		GridPane.setHalignment(elements.getSavedTimes(), HPos.RIGHT);
 		GridPane.setHalignment(elements.getDateLabel(), HPos.CENTER);
 		grid.setMinSize(400, 200);
 		grid.setGridLinesVisible(true);
@@ -37,7 +40,7 @@ class GridLayOut {
 		grid.setHgap(5);
 		grid.setAlignment(Pos.CENTER);
 		numCols = 1;
-		numRows = 3;
+		numRows = 5;
 		for (int i = 0; i < numCols; i++) {
 			ColumnConstraints colConst = new ColumnConstraints();
 			colConst.setPercentWidth(100 / numCols);

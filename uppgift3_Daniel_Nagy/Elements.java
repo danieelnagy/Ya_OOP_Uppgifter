@@ -2,30 +2,30 @@ package uppgift3_Daniel_Nagy;
 
 import java.sql.Date;
 import java.text.SimpleDateFormat;
-import java.time.Duration;
-
+import java.util.ArrayList;
 import javafx.animation.AnimationTimer;
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
-import javafx.geometry.Pos;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
-import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.SimpleIntegerProperty;
 
 class Elements {
 
 	private Button btnStart;
-	private Button btnStop;
+	private Button btnClear;
 	private Label timerLabel;
 	private Label dateLabel;
+	private Label saveLabel;
 	private SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd 'at' HH:mm:ss z");
 	private Date date = new Date(System.currentTimeMillis());
+	private long elapsedTime = 0;
 	private long startTime;
 	private AnimationTimer timer;
+	private ArrayList<String> results = new ArrayList<String>();
+	ComboBox<String> savedTimes;
+	EventHandler<ActionEvent> event;
 
 	public Elements() {
 		styles();
@@ -35,8 +35,8 @@ class Elements {
 		return btnStart;
 	}
 
-	public Button getStopButton() {
-		return btnStop;
+	public Button getClearButton() {
+		return btnClear;
 	}
 
 	public Label getTimeLabel() {
@@ -47,31 +47,58 @@ class Elements {
 		return dateLabel;
 	}
 
+	public Label getSaveLabel() {
+		return saveLabel;
+	}
+
+	public ComboBox<String> getSavedTimes() {
+		return savedTimes;
+	}
+
 	void styles() {
+		results.add("");
+		savedTimes = new ComboBox<String>();
 		timerLabel = new Label("Timer");
 		dateLabel = new Label("Date");
-		btnStart = new Button("Start");
+		saveLabel = new Label("Saved times");
+		btnStart = new Button("Start/Stop");
+		btnClear = new Button("Clear saves");
+		savedTimes.setPromptText("All saved times");
 		btnStart.setPadding(new Insets(10, 10, 10, 10));
-		btnStop = new Button("Stop");
-		btnStop.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
-		btnStop.setPadding(new Insets(10, 10, 10, 10));
+		btnStart.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
+		btnClear.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
 		btnStart.setOnAction((event) -> {
-			startTime = System.currentTimeMillis();
-			timer = new AnimationTimer() {
-				public void handle(long now) {
-					long elapsedTime = System.currentTimeMillis() - startTime;
-					String text = String.format("%3.1f seconds elapsed", elapsedTime / 1000.0);
-					timerLabel.setText(text);
-				}
-			};
-			timer.start();
-
+			if (elapsedTime == 0) {
+				startTime = System.currentTimeMillis();
+				timer = new AnimationTimer() {
+					public void handle(long now) {
+						elapsedTime = System.currentTimeMillis() - startTime;
+						String text = String.format("%3.1f seconds elapsed", elapsedTime / 1000.0);
+						timerLabel.setText(text);
+					}
+				};
+				timer.start();
+			} else {
+				timer.stop();
+				long endTime = System.currentTimeMillis();
+				double seconds = (endTime - startTime) / 1000.0;
+				String time = ("Date: " + formatter.format(date) + "\n"
+						+ String.format("Time: %1.3f seconds", seconds));
+				dateLabel.setText(time);
+				results.add(time);
+				savedTimes.getItems().addAll(results.get(results.size() - 1));
+				saveLabel.setText("Previous time: " + results.get(results.size() - 2));
+				elapsedTime = 0;
+			}
 		});
-		btnStop.setOnAction((event) -> {
-			timer.stop();
-			long endTime = System.currentTimeMillis();
-			double seconds = (endTime - startTime) / 1000.0;
-			dateLabel.setText("Date: " + formatter.format(date) + "\n" + String.format("Time: %1.3f seconds", seconds));
-		});
+		event = new EventHandler<ActionEvent>() {
+			public void handle(ActionEvent e) {
+				/* results.removeAll(results); arraylistan rensas inte bara comboboxen, men funkar iaf..
+				 * proff: foreach for(var i : results) { System.out.println(i); }
+				 */
+				savedTimes.getItems().clear();
+			}
+		};
+		btnClear.setOnAction(event);
 	}
 }
