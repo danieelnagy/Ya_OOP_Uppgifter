@@ -32,7 +32,7 @@ public class Main extends Application {
 	public void start(Stage primaryStage) throws Exception {
 		grid = new GridLayOut();
 		stage = primaryStage;
-		stage.setTitle("Stoppuret");
+		stage.setTitle("ASDDDDDD");
 		Scene scene = new Scene(grid.getGrid());
 		stage.setScene(scene);
 		primaryStage.show();
