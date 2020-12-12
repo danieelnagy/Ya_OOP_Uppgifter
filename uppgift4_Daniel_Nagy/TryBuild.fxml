@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<SplitPane dividerPositions="0.4748743718592965" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" orientation="VERTICAL" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="uppgift4_Daniel_Nagy.UiElements">
+  <items>
+    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="598.0">
+         <children>
+            <Button accessibleText="deleteBtn" layoutX="528.0" layoutY="150.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="55.0" text="Delete" />
+            <Button fx:id="addBtn" accessibleText="addBtn" layoutX="459.0" layoutY="150.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="25.0" prefWidth="55.0" text="Add" />
+            <Button fx:id="updateBtn" accessibleText="updateBtn" layoutX="386.0" layoutY="150.0" mnemonicParsing="false" prefHeight="25.0" text="Update" />
+            <Label fx:id="label1" accessibleText="fNameLabel" contentDisplay="CENTER" layoutX="36.0" layoutY="24.0" text="First name" textAlignment="CENTER" />
+            <Label accessibleText="lNameLabel" layoutX="37.0" layoutY="72.0" text="Last name" textAlignment="CENTER" />
+            <Label accessibleText="ageLabel" layoutX="37.0" layoutY="115.0" text="Age" textAlignment="CENTER" />
+            <TextField layoutX="431.0" layoutY="20.0" />
+            <TextField layoutX="431.0" layoutY="68.0" />
+            <TextField layoutX="431.0" layoutY="111.0" />
+         </children></AnchorPane>
+    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="215.0" prefWidth="598.0">
+         <children>
+            <TableView layoutX="-1.0" layoutY="-2.0" prefHeight="252.0" prefWidth="600.0">
+              <columns>
+                <TableColumn prefWidth="250.0" text="First name" />
+                <TableColumn minWidth="0.0" prefWidth="250.0" text="Last name" />
+                  <TableColumn prefWidth="100.0" text="Age" />
+              </columns>
+            </TableView>
+         </children></AnchorPane>
+  </items>
+</SplitPane>
