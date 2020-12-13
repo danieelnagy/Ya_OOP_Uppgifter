@@ -2,8 +2,6 @@ package uppgift4_Daniel_Nagy;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collection;
-
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.HPos;
@@ -20,15 +18,15 @@ import javafx.scene.layout.RowConstraints;
 
 class UiElements {
 	
-	Person person;
-	ObservableList<Person> list;
+	private Person person;
+	private ObservableList<Person> list;
 	private Serialization ser = new Serialization();
 	private GridPane gridPane;
 	private TableView<Person> tableView;
 	private Label firstName, lastName, age;
 	private Button btnAdd, btnUpdate, btnDelete, btnSer, btnDes;
 	private TextField fName, lName, ageText;
-	ArrayList<String> s = new ArrayList<>();
+	private ArrayList<String> s = new ArrayList<>();
 
 	public UiElements() {
 		Styles();
@@ -46,8 +44,6 @@ class UiElements {
 		/* Grid Styles */
 		gridPane = new GridPane();
 		gridPane.setHgap(5);
-		// gridPane.setPadding(new Insets(20,20,20,20));
-		gridPane.setGridLinesVisible(true);
 		Rows();
 
 		/* Labels */
@@ -100,10 +96,10 @@ class UiElements {
 		gridPane.add(ageText, 0, 2);
 		ageText.setMaxSize(350, 20);
 		GridPane.setHalignment(ageText, HPos.CENTER);
+		
 		/* Table */
 
 		tableView = new TableView<>();
-
 	    TableColumn<Person, String> columnOne = new TableColumn<>("First name");
 	    columnOne.setCellValueFactory(new PropertyValueFactory<>("firstName"));
 	    TableColumn<Person, String>  columnTwo = new TableColumn<>("Last name");
@@ -114,6 +110,8 @@ class UiElements {
 	    tableView.setItems(getList());
 	    
 		/* Events */
+	    
+	    /* Add */
 		btnAdd.setOnAction((event) -> {
 			person = new Person(fName.getText(), lName.getText(), ageText.getText());
 			s.add(person.toString());
@@ -134,9 +132,12 @@ class UiElements {
 		
 		/* Update */
 		btnUpdate.setOnAction((event) -> {
+			//bortse hann inte med den
 			ObservableList<Person> selected, all;
-			all = tableView.getItems();
 			selected = tableView.getSelectionModel().getSelectedItems();
+		    TableColumn<Person, String>  column = new TableColumn<>("Info");
+		    columnThree.setCellValueFactory(new PropertyValueFactory<>("firstName " + "lastName " + "age"));
+			
 		});
 		
 		/* Serialize */
@@ -155,7 +156,6 @@ class UiElements {
 			try {
 				ser.deserializeFromXML();
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		});		
@@ -175,6 +175,7 @@ class UiElements {
 			gridPane.getRowConstraints().add(rowConst);
 		}
 	}
+	
 	public ObservableList<Person> getList() {
 	list = FXCollections.observableArrayList(
 	new Person("Abby", "Anderson", "20"),

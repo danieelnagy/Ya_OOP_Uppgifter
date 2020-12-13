@@ -10,8 +10,6 @@ import javafx.stage.Stage;
 public class Main extends Application {
 
 	private UiElements elements = new UiElements();
-	Serialization ser = new Serialization();
-	Events eve = new Events();
 	private Stage stage;
 
 	public static void main(String[] args) {
