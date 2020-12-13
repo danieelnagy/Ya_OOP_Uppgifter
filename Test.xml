@@ -5,7 +5,13 @@
    <string>Person [firstName=d, lastName=d, age=d]</string>
   </void>
   <void method="add">
-   <string>Person [firstName=d, lastName=a, age=d]</string>
+   <string>Person [firstName=d, lastName=d, age=d]</string>
+  </void>
+  <void method="add">
+   <string>Person [firstName=a, lastName=a, age=a]</string>
+  </void>
+  <void method="add">
+   <string>Person [firstName=a, lastName=a, age=a]</string>
   </void>
  </object>
 </java>
