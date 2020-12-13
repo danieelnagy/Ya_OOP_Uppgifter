@@ -26,7 +26,10 @@ class Serialization {
 		
 		FileInputStream fis = new FileInputStream(SERIALIZED_FILE_NAME);
 	    XMLDecoder decoder = new XMLDecoder(fis);
-	    Person person = (Person) decoder.readObject();
+	    ArrayList<String> list = (ArrayList<String>) decoder.readObject();
+	    for(var i : list) {
+	    	System.out.println(i);
+	    }
 	    decoder.close();
 	    fis.close();
 	}
