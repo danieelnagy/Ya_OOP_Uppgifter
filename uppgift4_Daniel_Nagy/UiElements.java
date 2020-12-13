@@ -1,18 +1,9 @@
 package uppgift4_Daniel_Nagy;
 
-import java.beans.ExceptionListener;
-import java.beans.XMLEncoder;
-import java.io.BufferedOutputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.Collection;
 
-import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.HPos;
@@ -28,18 +19,9 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.RowConstraints;
 
 class UiElements {
-	Person person;
-	public ObservableList<Person> getList() {
-	ObservableList<Person> data = FXCollections.observableArrayList(
-	new Person("Abby", "Lax", "StrongCat"),
-	new Person("Ellie", "Fireflies", "SneakyCat"),
-	new Person("Medi", "Strawberry", "GoodDog"),
-	new Person("Daisy", "Duck", "YorkieDog"),
-	new Person("Daphne", "Turkey", "Puppy"),
-	new Person("Joel", "Beef", "Puppy"));
-	return data;
-	}
 	
+	Person person;
+	ObservableList<Person> list;
 	private Serialization ser = new Serialization();
 	private GridPane gridPane;
 	private TableView<Person> tableView;
@@ -133,29 +115,33 @@ class UiElements {
 	    
 		/* Events */
 		btnAdd.setOnAction((event) -> {
-
-			/*
-			 * String S = fName.getText(); String f = lName.getText(); String l =
-			 * ageText.getText();
-			 */
 			person = new Person(fName.getText(), lName.getText(), ageText.getText());
 			s.add(person.toString());
 			fName.clear();
 			lName.clear();
 			ageText.clear();
-		    tableView.getColumns().addAll(columnOne, columnTwo, columnThree);
-			/*
-			 * person.setName(fName.getText()); person.setLastName(lName.getText());
-			 * person.setAge(ageText.getText()); /*List<Person> list = new ArrayList<>();
-			 * list.add(person);
-			 */
-			// ser.setPers(list);
 			tableView.getItems().add(person);
 			s.add(person.toString());
 		});
 		
+		/* Remove */
+		btnDelete.setOnAction((event) -> {
+			ObservableList<Person> selected, all;
+			all = tableView.getItems();
+			selected = tableView.getSelectionModel().getSelectedItems();
+			selected.forEach(all::remove);
+		});
+		
+		/* Update */
+		btnUpdate.setOnAction((event) -> {
+			ObservableList<Person> selected, all;
+			all = tableView.getItems();
+			selected = tableView.getSelectionModel().getSelectedItems();
+		});
+		
 		/* Serialize */
 		btnSer.setOnAction((event) -> {
+			s.add(getList().toString());
 			try {
 				ser.serializeToXML(s);
 			} catch (IOException e) {
@@ -188,5 +174,15 @@ class UiElements {
 			rowConst.setPercentHeight(100 / numRows);
 			gridPane.getRowConstraints().add(rowConst);
 		}
+	}
+	public ObservableList<Person> getList() {
+	list = FXCollections.observableArrayList(
+	new Person("Abby", "Anderson", "20"),
+	new Person("Ellie", "Unknown", "19"),
+	new Person("Medi", "Bota", "22"),
+	new Person("Daisy", "Nagy", "4"),
+	new Person("Arthur", "Morgan", "Old"),
+	new Person("Xoti", "Eothas", "20"));
+	return list;
 	}
 }

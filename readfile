@@ -2,28 +2,13 @@
 <java version="14.0.2" class="java.beans.XMLDecoder">
  <object class="java.util.ArrayList">
   <void method="add">
-   <string>Person [firstName=d, lastName=d, age=d]</string>
+   <string>Person [firstName=dddd, lastName=aaa, age=eee]</string>
   </void>
   <void method="add">
-   <string>Person [firstName=d, lastName=d, age=d]</string>
+   <string>Person [firstName=dddd, lastName=aaa, age=eee]</string>
   </void>
   <void method="add">
-   <string>Person [firstName=, lastName=, age=]</string>
-  </void>
-  <void method="add">
-   <string>Person [firstName=, lastName=, age=]</string>
-  </void>
-  <void method="add">
-   <string>Person [firstName=d, lastName=d, age=d]</string>
-  </void>
-  <void method="add">
-   <string>Person [firstName=d, lastName=d, age=d]</string>
-  </void>
-  <void method="add">
-   <string>Person [firstName=, lastName=a, age=]</string>
-  </void>
-  <void method="add">
-   <string>Person [firstName=, lastName=a, age=]</string>
+   <string>[Person [firstName=Abby, lastName=Anderson, age=20], Person [firstName=Ellie, lastName=Unknown, age=19], Person [firstName=Medi, lastName=Bota, age=22], Person [firstName=Daisy, lastName=Nagy, age=4], Person [firstName=Arthur, lastName=Morgan, age=Old], Person [firstName=Xoti, lastName=Eothas, age=20]]</string>
   </void>
  </object>
 </java>
