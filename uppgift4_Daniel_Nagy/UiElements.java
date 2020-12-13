@@ -1,6 +1,15 @@
 package uppgift4_Daniel_Nagy;
 
+import java.beans.ExceptionListener;
+import java.beans.XMLEncoder;
+import java.io.BufferedOutputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 import javafx.beans.property.SimpleStringProperty;
 import javafx.geometry.HPos;
@@ -15,14 +24,14 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.RowConstraints;
 
 class UiElements {
-	
 	Person person;
-	ArrayList<Person> arrP = new ArrayList<Person>();
+	private Serialization ser = new Serialization();
 	private GridPane gridPane;
 	private TableView<Person> tableView;
 	private Label firstName, lastName, age;
 	private Button btnAdd, btnUpdate, btnDelete;
 	private TextField fName, lName, ageText;
+	ArrayList<String> s = new ArrayList<>();
 	
 	public UiElements() {
 		Styles();
@@ -69,8 +78,11 @@ class UiElements {
 		
 		/* TextFields */
 		fName = new TextField("");
+		fName.setPromptText("Type first name here");
 		lName = new TextField("");
+		lName.setPromptText("Type last Name here");
 		ageText = new TextField("");
+		ageText.setPromptText("Type age here");
 
 		gridPane.add(fName, 0, 0);
 		fName.setMaxSize(350, 20);
@@ -94,15 +106,34 @@ class UiElements {
         /* Events */
         btnAdd.setOnAction((event) -> {
         	
-    	    columnOne.setCellValueFactory(c -> new SimpleStringProperty(fName.getText()));
-    	    columnTwo.setCellValueFactory(c -> new SimpleStringProperty(lName.getText()));
-    	    columnThree.setCellValueFactory(c -> new SimpleStringProperty(ageText.getText()));
-        	
-        	arrP.add(person = new Person(fName.getText(),lName.getText(),ageText.getText()));
+        	/*String S = fName.getText();
+        	String f = lName.getText();
+        	String l = ageText.getText();*/
+    	    //columnOne.setCellValueFactory(c -> new SimpleStringProperty(fName.getText()));
+    	    //columnTwo.setCellValueFactory(c -> new SimpleStringProperty(lName.getText()));
+    	    //columnThree.setCellValueFactory(c -> new SimpleStringProperty(ageText.getText()));
+    	    person = new Person(fName.getText(),lName.getText(),ageText.getText());
+    	    fName.clear();
+    	    lName.clear();
+    	    ageText.clear();
+    	    /*person.setName(fName.getText());
+    	    person.setLastName(lName.getText());
+    	    person.setAge(ageText.getText());
+        	/*List<Person> list = new ArrayList<>();
+        	list.add(person);*/
+        	Serialization ser = new Serialization();
+        	//ser.setPers(list);
         	tableView.getItems().add(person);
+        	s.add(person.toString());
+        	try {
+				ser.serializeToXML(s);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		});
 	}
-	
+
 	void Rows () {
 		int numCols = 1;
 		int numRows = 3;
