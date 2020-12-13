@@ -1,9 +1,8 @@
 package uppgift4_Daniel_Nagy;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
-import javafx.animation.AnimationTimer;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
@@ -20,7 +19,7 @@ class UiElements {
 	Person person;
 	ArrayList<Person> arrP = new ArrayList<Person>();
 	private GridPane gridPane;
-	private TableView tableView;
+	private TableView<Person> tableView;
 	private Label firstName, lastName, age;
 	private Button btnAdd, btnUpdate, btnDelete;
 	private TextField fName, lName, ageText;
@@ -31,9 +30,10 @@ class UiElements {
 	GridPane GetGrid() {
 		return gridPane;
 	}
-	TableView<Object> GetTable() {
+	TableView<Person> GetTable() {
 		return tableView;
 	}
+	
 	void Styles() {
 		/* Grid Styles */
 		gridPane = new GridPane();
@@ -83,29 +83,26 @@ class UiElements {
 		GridPane.setHalignment(ageText, HPos.CENTER);
 		/* Table */
 		
-		tableView = new TableView();
-		TableColumn firstNameCol = new TableColumn("First Name");
-        TableColumn lastNameCol = new TableColumn("Last Name");
-        TableColumn AgeCol = new TableColumn("Age");
-        
-        tableView.getColumns().addAll(firstNameCol, lastNameCol, AgeCol);
-        
+	    tableView = new TableView<>();
+
+	    TableColumn<Person, String> columnOne = new TableColumn<Person, String>("First name");
+	    TableColumn<Person, String>  columnTwo = new TableColumn<Person, String>("Last name");
+	    TableColumn<Person, String>  columnThree = new TableColumn<Person, String>("Age");
+
+	    tableView.getColumns().addAll(columnOne, columnTwo, columnThree);
+       
         /* Events */
         btnAdd.setOnAction((event) -> {
-    		String nameF = fName.getText();
-        	String nameL = lName.getText();
-        	String age = ageText.getText();
-        	person = new Person(nameF, nameL, age);
         	
+    	    columnOne.setCellValueFactory(c -> new SimpleStringProperty(fName.getText()));
+    	    columnTwo.setCellValueFactory(c -> new SimpleStringProperty(lName.getText()));
+    	    columnThree.setCellValueFactory(c -> new SimpleStringProperty(ageText.getText()));
+        	
+        	arrP.add(person = new Person(fName.getText(),lName.getText(),ageText.getText()));
+        	tableView.getItems().add(person);
 		});
 	}
-	Person get() {
-		String nameF = fName.getText();
-    	String nameL = lName.getText();
-    	String age = ageText.getText();
-    	person = new Person(nameF, nameL, age);
-    	return person;
-	}
+	
 	void Rows () {
 		int numCols = 1;
 		int numRows = 3;
