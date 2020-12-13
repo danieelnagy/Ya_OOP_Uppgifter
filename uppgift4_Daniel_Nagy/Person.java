@@ -2,47 +2,42 @@ package uppgift4_Daniel_Nagy;
 
 import java.io.Serializable;
 
-class Person implements Serializable {
+public class Person implements Serializable {
 
 	private static final long serialVersionUID = -8430765870555791111L;
-	private String firstName;
-	private String lastName;
-	private String age;
+	private String firstName = null;
+    private String lastName = null;
+    private String age = null;
 
-	public Person(String firstName, String lastName, String age) {
-		this.firstName = firstName;
-		this.lastName = lastName;
-		this.age = age;
-	}
+    public Person() {
+    }
 
-	public String GetFirstName() {
-		return firstName;
-	}
+    public Person(String firstName, String lastName, String age) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.age = age;
+    }
 
-	public void setName(String newFirstName) {
-		this.firstName = newFirstName;
-	}
+    public String getFirstName() {
+        return firstName;
+    }
 
-	public String GetLastName() {
-		return lastName;
-	}
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
 
-	public void setLastName(String newLastName) {
-		this.lastName = newLastName;
-	}
+    public String getLastName() {
+        return lastName;
+    }
 
-	public String GetAge() {
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+	public String getAge() {
 		return age;
 	}
 
-	public void setAge(String newAge) {
-		this.age = newAge;
+	public void setAge(String age) {
+		this.age = age;
 	}
-
-	@Override
-	public String toString() {
-		return "Person [firstName=" + firstName + ", lastName=" + lastName + ", age=" + age + "]";
-	}
-	
-	
 }

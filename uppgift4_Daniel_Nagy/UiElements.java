@@ -10,8 +10,11 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javafx.beans.property.SimpleStringProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
@@ -19,53 +22,69 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.RowConstraints;
 
 class UiElements {
 	Person person;
+	public ObservableList<Person> getList() {
+	ObservableList<Person> data = FXCollections.observableArrayList(
+	new Person("Abby", "Lax", "StrongCat"),
+	new Person("Ellie", "Fireflies", "SneakyCat"),
+	new Person("Medi", "Strawberry", "GoodDog"),
+	new Person("Daisy", "Duck", "YorkieDog"),
+	new Person("Daphne", "Turkey", "Puppy"),
+	new Person("Joel", "Beef", "Puppy"));
+	return data;
+	}
+	
 	private Serialization ser = new Serialization();
 	private GridPane gridPane;
 	private TableView<Person> tableView;
 	private Label firstName, lastName, age;
-	private Button btnAdd, btnUpdate, btnDelete;
+	private Button btnAdd, btnUpdate, btnDelete, btnSer, btnDes;
 	private TextField fName, lName, ageText;
 	ArrayList<String> s = new ArrayList<>();
-	
+
 	public UiElements() {
 		Styles();
 	}
+
 	GridPane GetGrid() {
 		return gridPane;
 	}
+
 	TableView<Person> GetTable() {
 		return tableView;
 	}
-	
+
 	void Styles() {
 		/* Grid Styles */
 		gridPane = new GridPane();
 		gridPane.setHgap(5);
-		//gridPane.setPadding(new Insets(20,20,20,20));
+		// gridPane.setPadding(new Insets(20,20,20,20));
 		gridPane.setGridLinesVisible(true);
 		Rows();
-		
+
 		/* Labels */
 		firstName = new Label("First Name: ");
-		firstName.setPadding(new Insets(0,0,0,30));
+		firstName.setPadding(new Insets(0, 0, 0, 30));
 		lastName = new Label("Last Name: ");
-		lastName.setPadding(new Insets(0,0,0,30));
+		lastName.setPadding(new Insets(0, 0, 0, 30));
 		age = new Label("Age: ");
-		age.setPadding(new Insets(0,0,0,30));
+		age.setPadding(new Insets(0, 0, 0, 30));
 		gridPane.add(firstName, 0, 0);
 		gridPane.add(lastName, 0, 1);
 		gridPane.add(age, 0, 2);
-		
-		/* Buttons*/		
+
+		/* Buttons */
 		btnAdd = new Button("Add");
 		btnUpdate = new Button("Update");
 		btnDelete = new Button("Delete");
+		btnSer = new Button("Serialize");
+		btnDes = new Button("Deserialize");
 		gridPane.add(btnAdd, 0, 0);
 		GridPane.setHalignment(btnAdd, HPos.RIGHT);
 		btnAdd.setMinWidth(80);
@@ -75,7 +94,13 @@ class UiElements {
 		gridPane.add(btnUpdate, 0, 2);
 		GridPane.setHalignment(btnUpdate, HPos.RIGHT);
 		btnUpdate.setMinWidth(80);
-		
+		gridPane.add(btnSer, 0, 3);
+		GridPane.setHalignment(btnSer, HPos.RIGHT);
+		btnSer.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
+		gridPane.add(btnDes, 0, 4);
+		GridPane.setHalignment(btnDes, HPos.LEFT);
+		btnDes.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
+
 		/* TextFields */
 		fName = new TextField("");
 		fName.setPromptText("Type first name here");
@@ -94,49 +119,65 @@ class UiElements {
 		ageText.setMaxSize(350, 20);
 		GridPane.setHalignment(ageText, HPos.CENTER);
 		/* Table */
-		
-	    tableView = new TableView<>();
 
-	    TableColumn<Person, String> columnOne = new TableColumn<Person, String>("First name");
-	    TableColumn<Person, String>  columnTwo = new TableColumn<Person, String>("Last name");
-	    TableColumn<Person, String>  columnThree = new TableColumn<Person, String>("Age");
+		tableView = new TableView<>();
 
+	    TableColumn<Person, String> columnOne = new TableColumn<>("First name");
+	    columnOne.setCellValueFactory(new PropertyValueFactory<>("firstName"));
+	    TableColumn<Person, String>  columnTwo = new TableColumn<>("Last name");
+	    columnTwo.setCellValueFactory(new PropertyValueFactory<>("lastName"));
+	    TableColumn<Person, String>  columnThree = new TableColumn<>("Age");
+	    columnThree.setCellValueFactory(new PropertyValueFactory<>("age"));
 	    tableView.getColumns().addAll(columnOne, columnTwo, columnThree);
-       
-        /* Events */
-        btnAdd.setOnAction((event) -> {
-        	
-        	/*String S = fName.getText();
-        	String f = lName.getText();
-        	String l = ageText.getText();*/
-    	    //columnOne.setCellValueFactory(c -> new SimpleStringProperty(fName.getText()));
-    	    //columnTwo.setCellValueFactory(c -> new SimpleStringProperty(lName.getText()));
-    	    //columnThree.setCellValueFactory(c -> new SimpleStringProperty(ageText.getText()));
-    	    person = new Person(fName.getText(),lName.getText(),ageText.getText());
-    	    fName.clear();
-    	    lName.clear();
-    	    ageText.clear();
-    	    /*person.setName(fName.getText());
-    	    person.setLastName(lName.getText());
-    	    person.setAge(ageText.getText());
-        	/*List<Person> list = new ArrayList<>();
-        	list.add(person);*/
-        	Serialization ser = new Serialization();
-        	//ser.setPers(list);
-        	tableView.getItems().add(person);
-        	s.add(person.toString());
-        	try {
+	    tableView.setItems(getList());
+	    
+		/* Events */
+		btnAdd.setOnAction((event) -> {
+
+			/*
+			 * String S = fName.getText(); String f = lName.getText(); String l =
+			 * ageText.getText();
+			 */
+			person = new Person(fName.getText(), lName.getText(), ageText.getText());
+			s.add(person.toString());
+			fName.clear();
+			lName.clear();
+			ageText.clear();
+		    tableView.getColumns().addAll(columnOne, columnTwo, columnThree);
+			/*
+			 * person.setName(fName.getText()); person.setLastName(lName.getText());
+			 * person.setAge(ageText.getText()); /*List<Person> list = new ArrayList<>();
+			 * list.add(person);
+			 */
+			// ser.setPers(list);
+			tableView.getItems().add(person);
+			s.add(person.toString());
+		});
+		
+		/* Serialize */
+		btnSer.setOnAction((event) -> {
+			try {
 				ser.serializeToXML(s);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		});
+		
+		/* Deserialize */
+		
+		btnDes.setOnAction((event) -> {
+			try {
+				ser.deserializeFromXML();
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-		});
+		});		
 	}
-
-	void Rows () {
+	
+	void Rows() {
 		int numCols = 1;
-		int numRows = 3;
+		int numRows = 5;
 		for (int i = 0; i < numCols; i++) {
 			ColumnConstraints colConst = new ColumnConstraints();
 			colConst.setPercentWidth(100 / numCols);
