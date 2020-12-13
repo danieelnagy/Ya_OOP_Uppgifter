@@ -25,7 +25,7 @@ public class Main extends Application {
 		vbox.setSpacing(5);
         vbox.setPadding(new Insets(10, 0, 0, 10));
 		vbox.getChildren().addAll(elements.GetGrid(), elements.GetTable());
-		Scene scene = new Scene(vbox, 600, 320);
+		Scene scene = new Scene(vbox, 1024, 768);
         stage.setScene(scene);
         primaryStage.show();
     }

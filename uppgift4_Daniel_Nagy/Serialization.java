@@ -8,19 +8,12 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import javafx.collections.ObservableList;
+
 
 class Serialization {
 
 	private static final String SERIALIZED_FILE_NAME="readfile";
-	/*List<Person> pers;
-
-	public List<Person> getPers() {
-		return pers;
-	}
-
-	public void setPers(List<Person> pers) {
-		this.pers = pers;
-	}*/
 	
 	void serializeToXML(ArrayList<String> s) throws IOException {
 		
