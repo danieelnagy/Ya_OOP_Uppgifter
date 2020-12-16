@@ -11,7 +11,7 @@ import javafx.stage.Stage;
 public class Main extends Application {
 
 	private Stage stage;
-	SceneOne sceneOne;
+	SceneOne sceneOne = new SceneOne();
 	SceneTwo sceneTwo;
 
 	public static void main(String[] args) {
@@ -20,10 +20,10 @@ public class Main extends Application {
 
 	@Override
     public void start(Stage primaryStage) throws Exception {
+		sceneTwo = new SceneTwo();
 		stage = primaryStage;
-        sceneOne = new SceneOne();
 		Scene scene = new Scene(sceneOne.getGrid(), 400, 300);
-		Scene finalScene = new Scene(sceneTwo.getHbox()); 
+		Scene finalScene = new Scene(sceneTwo.getPane()); 
         sceneOne.getCreate().setOnAction(e -> stage.setScene(finalScene));
         stage.setScene(scene);
         primaryStage.show();

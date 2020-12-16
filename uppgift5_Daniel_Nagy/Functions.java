@@ -1,6 +1,7 @@
 package uppgift5_Daniel_Nagy;
 
 import javafx.geometry.Pos;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.ColumnConstraints;
@@ -9,7 +10,7 @@ import javafx.scene.layout.RowConstraints;
 
 class Functions {
 
-	Label LabelStyle(Label label) {
+	Label LabelStyleSceneOne(Label label) {
 
 		label.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
 		label.setAlignment(Pos.CENTER);
@@ -32,5 +33,10 @@ class Functions {
 		grid.setHgap(25);
 		grid.setGridLinesVisible(true);
 		return grid;
+	}
+	
+	Button ButtonStyle(Button btn) {
+		btn.setMinWidth(80);
+		return btn;
 	}
 }

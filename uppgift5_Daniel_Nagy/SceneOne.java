@@ -54,7 +54,7 @@ class SceneOne {
 		flow.setHgap(0);
 		
 		/* Label */
-		pin = functions.LabelStyle(pin);
+		pin = functions.LabelStyleSceneOne(pin);
 		
 		/* Buttons */ 
 		GridPane.setHalignment(create, HPos.LEFT);
