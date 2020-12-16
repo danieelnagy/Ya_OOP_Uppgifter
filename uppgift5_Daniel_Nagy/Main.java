@@ -23,7 +23,7 @@ public class Main extends Application {
 		sceneTwo = new SceneTwo();
 		stage = primaryStage;
 		Scene scene = new Scene(sceneOne.getGrid(), 400, 300);
-		Scene finalScene = new Scene(sceneTwo.getPane()); 
+		Scene finalScene = new Scene(sceneTwo.getVbox()); 
         sceneOne.getCreate().setOnAction(e -> stage.setScene(finalScene));
         stage.setScene(scene);
         primaryStage.show();
