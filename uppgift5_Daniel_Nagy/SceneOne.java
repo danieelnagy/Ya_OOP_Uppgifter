@@ -66,7 +66,7 @@ class SceneOne {
 		
 		/* Grid */
 		grid = new GridPane();
-		grid = functions.GridStyle(grid);
+		grid = functions.GridStyleSceneOne(grid);
 		grid.add(pin, 0, 0);
 		grid.add(flow, 0, 1);
 		grid.add(create, 0, 2);
