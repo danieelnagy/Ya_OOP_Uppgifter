@@ -13,7 +13,6 @@ import javafx.stage.Stage;
 public class Main extends Application {
 
 	Boolean b = false;
-	static String name = "";
 	private Stage stage;
 	Stage stageTwo;
 	Functions func = new Functions();
@@ -44,6 +43,10 @@ public class Main extends Application {
         	if(b == true) {
         		stage.setScene(finalFinalScene);
         	}
+        });
+        sceneThree.getBtnKvitto().setOnAction((e) -> {
+            Save save = new Save();
+            save.Save();
         });
         primaryStage.show();
     }

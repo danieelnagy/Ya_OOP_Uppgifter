@@ -2,50 +2,45 @@ package uppgift5_Daniel_Nagy;
 
 import java.sql.Date;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-
 import javafx.collections.ObservableList;
 import javafx.geometry.HPos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 
 
 class SceneThree {
 
-	ArrayList<String> dateList = new ArrayList<>();
 	private SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd 'at' HH:mm:ss z");
 	private Date dateNow = new Date(System.currentTimeMillis());
 	private String time;
+	private String userName = "";
 	private String user;
 	private int balance;
 	private int amountInsertMoney = 0;
 	private Functions functions;
-	private Button btnInsert, btnTakeOut, btnExit, btnKvitto;
+	private Button btnInsert, btnTakeOut, btnKvitto;
 	private Label account, balanceLabel, takeOut, money, balanceShow;
 	private GridPane grid;
 	private HBox hbox;
-	private TableView tableView;
 	private TextField takeOutText, moneyText;
 	private VBox vbox;
-	private Konto konto;
 
 	public SceneThree() {
 		Styles();
 	}
+	
 	void Styles() {
 		vbox = new VBox();
 		functions = new Functions();
 
 		/* Labels */
-		account = new Label("Account owner: " + user);
-		balanceLabel = new Label("Balance: " + balance);
+		account = new Label(user);
+		balanceLabel = new Label("Balance: ");
 		balanceShow = new Label();
 		takeOut = new Label("Take money out");
 		money = new Label("Money to insert: ");
@@ -66,9 +61,6 @@ class SceneThree {
 
 		btnKvitto = new Button("Kvitto");
 		btnKvitto = functions.ButtonStyle(btnKvitto);
-		
-		btnExit = new Button("Exit");
-		btnExit = functions.ButtonStyle(btnKvitto);
 
 		/* HBOX */
 		hbox = new HBox();
@@ -85,6 +77,7 @@ class SceneThree {
 
 		grid.add(balanceLabel, 0, 1);
 		grid.add(balanceShow, 0, 1);
+		balanceShow.setText(String.valueOf(balance) + " kr");
 		GridPane.setHalignment(balanceShow, HPos.CENTER);
 		
 		grid.add(takeOut, 0, 2);
@@ -97,35 +90,36 @@ class SceneThree {
 		GridPane.setHalignment(moneyText, HPos.RIGHT);
 		moneyText.setMaxSize(250, 30);
 		
-		/* Table */
-		tableView = new TableView<>();
-	    TableColumn<Konto, String> columnOne = new TableColumn<>("Date");
-	    columnOne.setCellValueFactory(new PropertyValueFactory<>("date"));
-	    TableColumn<Konto, Integer>  columnTwo = new TableColumn<>("Balace");
-	    columnTwo.setCellValueFactory(new PropertyValueFactory<>("balance"));
-	    tableView.getColumns().addAll(columnOne, columnTwo);
-	    tableView.setItems((ObservableList) dateList);
+		/* Pane */
+		
+		StackPane pane = new StackPane();
+		ObservableList list = pane.getChildren();
+		
 
 		/* Vbox */
 
 		vbox.setPrefSize(640, 480);
-		vbox.getChildren().addAll(grid, hbox,tableView);
+		vbox.getChildren().addAll(grid, hbox,pane);
 
 		/* Events */
 		
 		btnTakeOut.setOnAction((event) -> {
 			amountInsertMoney = amountInsertMoney - Integer.parseInt(takeOutText.getText());
-			balanceShow.setText(String.valueOf(amountInsertMoney) + " kr");
+			balanceShow.setText(String.valueOf(amountInsertMoney) + " kr");			
 			time = getDate(time);
-			dateList.add(time);
+			list.add(time);
 		});
 		
 		btnInsert.setOnAction((event) -> {
 			amountInsertMoney = amountInsertMoney + Integer.parseInt(moneyText.getText());
 			balanceShow.setText(String.valueOf(amountInsertMoney) + " kr");
 			time = getDate(time);
-			dateList.add(time);
+			list.add(time);
 		});
+	}
+	
+	String returnName(String s) {
+		return s;
 	}
 	
 	public VBox getVbox() {
@@ -135,21 +129,12 @@ class SceneThree {
 	public void setVbox(VBox vbox) {
 		this.vbox = vbox;
 	}
-	public int getBalance() {
-		return balance;
+	public Button getBtnKvitto() {
+		return btnKvitto;
 	}
 
-	public void setBalance(int balance) {
-		this.balance = balance;
-	}
-
-	private String userName = "";
-	public String getUserName() {
-		return userName;
-	}
-
-	public void setUserName(String userName) {
-		this.userName = userName;
+	public void setBtnKvitto(Button btnKvitto) {
+		this.btnKvitto = btnKvitto;
 	}
 	String getDate(String time) {
 		time = (formatter.format(dateNow));

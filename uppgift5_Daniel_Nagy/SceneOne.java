@@ -17,6 +17,7 @@ import javafx.scene.layout.GridPane;
 
 class SceneOne {
 
+	SceneThree three;
 	private Functions functions;
 	private Button create, login;
 	private TextField userNameField;
@@ -27,13 +28,13 @@ class SceneOne {
 	static public int index = 0;
 	String accName;
 	String pw;
-	//ArrayList<Konto> lastList = new ArrayList<>();
 
 	public SceneOne() {
 		Style();
 	}
 
 	void Style() {
+		three = new SceneThree();
 		functions = new Functions();
 		create = new Button("Create account");
 		login = new Button("Login");
@@ -83,8 +84,8 @@ class SceneOne {
 		pw = pwField.getText();
 		for(int i = 0;i < SceneTwo.list.size();i++) {
 		if(accName.equals(SceneTwo.list.get(i).getUserName()) && pw.equals(SceneTwo.list.get(i).getPassword())) {
+			three.returnName(accName);
 			b = true;
-			
 		} else {
 			b = false;
 		}
