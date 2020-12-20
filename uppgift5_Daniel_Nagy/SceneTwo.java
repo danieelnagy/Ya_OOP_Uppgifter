@@ -3,25 +3,13 @@ package uppgift5_Daniel_Nagy;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-
 import javafx.geometry.HPos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.ColumnConstraints;
-import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.RowConstraints;
 import javafx.scene.layout.VBox;
-import javafx.scene.text.Text;
-import javafx.stage.Popup;
-import javafx.stage.Stage;
-import uppgift4_Daniel_Nagy.Person;
 
 class SceneTwo {
 
@@ -76,7 +64,6 @@ class SceneTwo {
 		/* HBOX */
 		hbox = new HBox();
 		hbox.getChildren().addAll(btnAccCreate, btnInsert, btnDone);
-		// hbox.setPrefSize(100, 160);
 
 		/* Grid */
 		grid = new GridPane();

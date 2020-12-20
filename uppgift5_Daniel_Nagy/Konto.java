@@ -1,12 +1,5 @@
 package uppgift5_Daniel_Nagy;
 
-import java.util.ArrayList;
-
-import javafx.beans.property.ReadOnlyStringProperty;
-import javafx.beans.property.ReadOnlyStringWrapper;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
-
 class Konto {
 	private String userName;
 	private String date;
@@ -51,9 +44,11 @@ class Konto {
 	public void setBalance(int balance) {
 		this.balance = balance;
 	}
-	@Override
-	protected Object clone() throws CloneNotSupportedException {
 
-	    return super.clone();
+	@Override
+	public String toString() {
+		return "Konto [userName=" + userName + ", date=" + date + ", password=" + password + ", balance=" + balance
+				+ "]";
 	}
+	
 }

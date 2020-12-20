@@ -11,8 +11,6 @@ import java.util.ArrayList;
 
 public class Save {
 
-	// private static final String FW_FILE_NAME = "readfile";
-
 	public void Save() {
 		try {
 			FileWriter myWriter = new FileWriter("filename.txt");

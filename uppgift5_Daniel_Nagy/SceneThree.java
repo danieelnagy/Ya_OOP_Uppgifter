@@ -1,33 +1,32 @@
 package uppgift5_Daniel_Nagy;
 
+import java.io.IOException;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.geometry.HPos;
+import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
-import uppgift4_Daniel_Nagy.Person;
 
 class SceneThree {
 
+	Serialization seri;
 	private SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd 'at' HH:mm:ss z");
 	private Date dateNow = new Date(System.currentTimeMillis());
 	private String time;
+	FlowPane flow;
 	private String userName = "";
 	private String user;
 	private int balance;
 	private int amountInsertMoney = 0;
 	private Functions functions;
-	private Button btnInsert, btnTakeOut, btnKvitto;
+	private Button btnInsert, btnTakeOut, btnKvitto, btnSerialize, btnDeserialize;
 	private Label account, balanceLabel, takeOut, money, balanceShow;
 	private GridPane grid;
 	private HBox hbox;
@@ -39,6 +38,7 @@ class SceneThree {
 	}
 
 	void Styles() {
+		seri = new Serialization();
 		ListView<String> angryMe = new ListView<String>();
 		vbox = new VBox();
 		functions = new Functions();
@@ -66,11 +66,17 @@ class SceneThree {
 
 		btnKvitto = new Button("Kvitto");
 		btnKvitto = functions.ButtonStyle(btnKvitto);
-
-		/* HBOX */
-		hbox = new HBox();
-		hbox.getChildren().addAll(btnInsert, btnTakeOut, btnKvitto);
-		// hbox.setPrefSize(100, 160);
+		
+		btnSerialize = new Button("Serialize");
+		btnSerialize = functions.ButtonStyle(btnSerialize);
+		
+		btnDeserialize = new Button("Deserialize OBS!!!FUNKAREJJJ" );
+		btnDeserialize = functions.ButtonStyle(btnDeserialize);
+		
+		/* FlowPane */
+		flow = new FlowPane();
+		flow.setAlignment(Pos.CENTER);
+		flow.getChildren().addAll(btnInsert,btnTakeOut,btnKvitto,btnDeserialize,btnSerialize);
 
 		/* Grid */
 		grid = new GridPane();
@@ -98,7 +104,7 @@ class SceneThree {
 		/* Vbox */
 
 		vbox.setPrefSize(640, 480);
-		vbox.getChildren().addAll(grid, hbox, angryMe);
+		vbox.getChildren().addAll(grid, flow, angryMe);
 
 		/* Events */
 
@@ -114,6 +120,21 @@ class SceneThree {
 			balanceShow.setText(String.valueOf(amountInsertMoney) + " kr");
 			time = getDate(time + "");
 			angryMe.getItems().add(time + " inserted this much money: " + Integer.parseInt(moneyText.getText()) + " kr");
+		});
+		btnSerialize.setOnAction((event) -> {
+			try {
+				seri.serializeToXML(SceneTwo.list.toString());
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		});
+		btnDeserialize.setOnAction((event) -> {
+			/* FUNKAR EJ bortse */
+			try {
+				seri.deserializeFromXML(SceneTwo.list.toString());
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 		});
 	}
 
