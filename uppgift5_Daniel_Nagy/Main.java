@@ -13,11 +13,13 @@ import javafx.stage.Stage;
 public class Main extends Application {
 
 	Boolean b = false;
+	static String name = "";
 	private Stage stage;
 	Stage stageTwo;
 	Functions func = new Functions();
 	SceneOne sceneOne = new SceneOne();
 	SceneTwo sceneTwo = new SceneTwo();
+	SceneThree sceneThree = new SceneThree();
 
 	public static void main(String[] args) {
 		launch(args);
@@ -29,6 +31,7 @@ public class Main extends Application {
 		stageTwo = primaryStage;
 		Scene scene = new Scene(sceneOne.getGrid(), 400, 200);
 		Scene finalScene = new Scene(sceneTwo.getVbox());
+		Scene finalFinalScene = new Scene(sceneThree.getVbox());
         stage.setScene(scene);
         sceneOne.getCreate().setOnAction(e -> {
         	stage.setScene(finalScene);
@@ -37,7 +40,10 @@ public class Main extends Application {
         	stage.setScene(scene);
         });
         sceneOne.getLogin().setOnAction((e) -> {
-        	sceneOne.Access(b);
+        	b = sceneOne.Access(b);
+        	if(b == true) {
+        		stage.setScene(finalFinalScene);
+        	}
         });
         primaryStage.show();
     }

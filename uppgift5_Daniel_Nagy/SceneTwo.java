@@ -150,4 +150,13 @@ class SceneTwo {
 	public Button getBtnInsert() {
 		return btnInsert;
 	}
+
+	public int getAmountInsertMoney() {
+		return amountInsertMoney;
+	}
+
+	public void setAmountInsertMoney(int amountInsertMoney) {
+		this.amountInsertMoney = amountInsertMoney;
+	}
+	
 }

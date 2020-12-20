@@ -24,6 +24,7 @@ class SceneOne {
 	private Label pin;
 	private GridPane grid;
 	private FlowPane flow;
+	static public int index = 0;
 	String accName;
 	String pw;
 	//ArrayList<Konto> lastList = new ArrayList<>();
@@ -77,20 +78,17 @@ class SceneOne {
 	}
 	
 	Boolean Access(Boolean b) {
-		
+		SceneThree scene = new SceneThree();
 		accName = userNameField.getText();
 		pw = pwField.getText();
 		for(int i = 0;i < SceneTwo.list.size();i++) {
 		if(accName.equals(SceneTwo.list.get(i).getUserName()) && pw.equals(SceneTwo.list.get(i).getPassword())) {
 			b = true;
-			System.out.println("TRUEEE");
+			
 		} else {
 			b = false;
 		}
-			
 		}
-		
-		
 		return b;
 	}
 	
