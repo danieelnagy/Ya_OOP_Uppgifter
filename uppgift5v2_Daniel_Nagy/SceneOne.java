@@ -1,72 +1,85 @@
-package uppgift5_Daniel_Nagy;
+package uppgift5v2_Daniel_Nagy;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
 
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.text.Text;
 
 class SceneOne {
-
-	private Functions functions;
+	
+	private Functions functions = new Functions();
 	private Button create, login;
-	private TextField userNameField;
-	private PasswordField pwField;
 	private Label pin;
 	private GridPane grid;
 	private FlowPane flow;
-	String accName;
-	String pw;
-	//ArrayList<Konto> lastList = new ArrayList<>();
+	User user = new User();
+	Text userName = new Text();
+	ArrayList<User> sad = new ArrayList<>();
 
 	public SceneOne() {
 		Style();
 	}
-
+	
 	void Style() {
-		functions = new Functions();
+		userName.textProperty().bind(user.userNameProperty());
+
+		PasswordField passwordField = new PasswordField();
+		passwordField.setPromptText("Password");
+
+		// Single direction bind of user.password
+		user.passwordProperty().bind(passwordField.textProperty());
+
+		// listener for password changes
+		passwordField.textProperty()
+				.addListener((observable, oldValue, newValue) -> System.out.println("the password is: " + newValue));
+
+
+		EventHandler<ActionEvent> event = new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent e) {
+				System.out.println(user.getPassword());
+			}
+		};
+
+		//login.setOnAction(event);
+		
+		
 		create = new Button("Create account");
 		login = new Button("Login");
-		pin = new Label(
-				"Please write in your pin & acc down below in the textboxes,\notherwise click on the create account button");
+		pin = new Label("Please write in your pin & acc down below in the textboxes,\notherwise click on the create account button");
+		
+		/* Text */
 
-		/* Texts */
-
-		userNameField = new TextField();
-		userNameField.setPromptText("Type userName");
-		;
-		pwField = new PasswordField();
-		pwField.setPromptText("Type password");
-
-		/* FlowPane */
-
+		/* FlowPane  */
+		
 		flow = new FlowPane();
 		flow.setAlignment(Pos.CENTER);
-		flow.getChildren().addAll(userNameField, pwField);
-		FlowPane.setMargin(pwField, new Insets(20, 20, 20, 30));
+		flow.getChildren().addAll(userName, passwordField);
+		FlowPane.setMargin(passwordField, new Insets(20, 20, 20, 30));
 		flow.setHgap(0);
-
+		
 		/* Label */
 		pin = functions.LabelStyleSceneOne(pin);
 		GridPane.setHalignment(pin, HPos.CENTER);
-
-		/* Buttons */
+		
+		/* Buttons */ 
 		GridPane.setHalignment(create, HPos.LEFT);
 		create.setMinWidth(100);
 		GridPane.setMargin(create, new Insets(20, 20, 20, 80));
 		GridPane.setHalignment(login, HPos.RIGHT);
 		login.setMinWidth(100);
 		GridPane.setMargin(login, new Insets(20, 80, 20, 20));
-
+		
 		/* Grid */
 		grid = new GridPane();
 		grid = functions.GridStyleSceneOne(grid);
@@ -74,33 +87,6 @@ class SceneOne {
 		grid.add(flow, 0, 1);
 		grid.add(create, 0, 2);
 		grid.add(login, 0, 2);
-	}
-	
-	Boolean Access(Boolean b) {
-		
-		accName = userNameField.getText();
-		pw = pwField.getText();
-		for(int i = 0;i < SceneTwo.list.size();i++) {
-		if(accName.equals(SceneTwo.list.get(i).getUserName()) && pw.equals(SceneTwo.list.get(i).getPassword())) {
-			b = true;
-			System.out.println("TRUEEE");
-		} else {
-			b = false;
-		}
-			
-		}
-		
-		
-		return b;
-	}
-	
-	String AccName(String userName) {
-		userName = userNameField.getText();
-		return userName;
-	}
-	String Password(String password) {
-		password = pwField.getText();
-		return password;
 	}
 
 	public Button getCreate() {
