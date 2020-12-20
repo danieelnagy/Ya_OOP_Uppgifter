@@ -2,16 +2,20 @@ package uppgift5_Daniel_Nagy;
 
 import java.sql.Date;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.HPos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
-
+import uppgift4_Daniel_Nagy.Person;
 
 class SceneThree {
 
@@ -33,8 +37,9 @@ class SceneThree {
 	public SceneThree() {
 		Styles();
 	}
-	
+
 	void Styles() {
+		ListView<String> angryMe = new ListView<String>();
 		vbox = new VBox();
 		functions = new Functions();
 
@@ -64,7 +69,7 @@ class SceneThree {
 
 		/* HBOX */
 		hbox = new HBox();
-		hbox.getChildren().addAll(btnInsert,btnTakeOut,btnKvitto);
+		hbox.getChildren().addAll(btnInsert, btnTakeOut, btnKvitto);
 		// hbox.setPrefSize(100, 160);
 
 		/* Grid */
@@ -79,7 +84,7 @@ class SceneThree {
 		grid.add(balanceShow, 0, 1);
 		balanceShow.setText(String.valueOf(balance) + " kr");
 		GridPane.setHalignment(balanceShow, HPos.CENTER);
-		
+
 		grid.add(takeOut, 0, 2);
 		grid.add(takeOutText, 0, 2);
 		GridPane.setHalignment(takeOutText, HPos.RIGHT);
@@ -89,39 +94,33 @@ class SceneThree {
 		grid.add(moneyText, 0, 3);
 		GridPane.setHalignment(moneyText, HPos.RIGHT);
 		moneyText.setMaxSize(250, 30);
-		
-		/* Pane */
-		
-		StackPane pane = new StackPane();
-		ObservableList list = pane.getChildren();
-		
 
 		/* Vbox */
 
 		vbox.setPrefSize(640, 480);
-		vbox.getChildren().addAll(grid, hbox,pane);
+		vbox.getChildren().addAll(grid, hbox, angryMe);
 
 		/* Events */
-		
+
 		btnTakeOut.setOnAction((event) -> {
 			amountInsertMoney = amountInsertMoney - Integer.parseInt(takeOutText.getText());
-			balanceShow.setText(String.valueOf(amountInsertMoney) + " kr");			
+			balanceShow.setText(String.valueOf(amountInsertMoney) + " kr");
 			time = getDate(time);
-			list.add(time);
+			angryMe.getItems().add(time + " took out this much cash: " + Integer.parseInt(takeOutText.getText()) + " kr");
 		});
-		
+
 		btnInsert.setOnAction((event) -> {
 			amountInsertMoney = amountInsertMoney + Integer.parseInt(moneyText.getText());
 			balanceShow.setText(String.valueOf(amountInsertMoney) + " kr");
-			time = getDate(time);
-			list.add(time);
+			time = getDate(time + "");
+			angryMe.getItems().add(time + " inserted this much money: " + Integer.parseInt(moneyText.getText()) + " kr");
 		});
 	}
-	
+
 	String returnName(String s) {
 		return s;
 	}
-	
+
 	public VBox getVbox() {
 		return vbox;
 	}
@@ -129,6 +128,7 @@ class SceneThree {
 	public void setVbox(VBox vbox) {
 		this.vbox = vbox;
 	}
+
 	public Button getBtnKvitto() {
 		return btnKvitto;
 	}
@@ -136,6 +136,7 @@ class SceneThree {
 	public void setBtnKvitto(Button btnKvitto) {
 		this.btnKvitto = btnKvitto;
 	}
+
 	String getDate(String time) {
 		time = (formatter.format(dateNow));
 		return time;
