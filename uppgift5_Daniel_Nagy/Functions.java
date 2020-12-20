@@ -64,7 +64,6 @@ class Functions {
 			rowConst.setPercentHeight(100 / numRows);
 			grid.getRowConstraints().add(rowConst);
 		}
-		// grid.setPadding(new Insets(50,50,50,50));
 		grid.setGridLinesVisible(true);
 		return grid;
 	}

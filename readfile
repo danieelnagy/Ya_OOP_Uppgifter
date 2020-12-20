@@ -1,26 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <java version="14.0.2" class="java.beans.XMLDecoder">
- <object class="java.util.ArrayList">
-  <void method="add">
-   <string>[Person [firstName=Abby, lastName=Anderson, age=20], Person [firstName=Ellie, lastName=Unknown, age=19], Person [firstName=Medi, lastName=Bota, age=22], Person [firstName=Daisy, lastName=Nagy, age=4], Person [firstName=Arthur, lastName=Morgan, age=Old], Person [firstName=Xoti, lastName=Eothas, age=20]]</string>
-  </void>
-  <void method="add">
-   <string>[Person [firstName=Abby, lastName=Anderson, age=20], Person [firstName=Ellie, lastName=Unknown, age=19], Person [firstName=Medi, lastName=Bota, age=22], Person [firstName=Daisy, lastName=Nagy, age=4], Person [firstName=Arthur, lastName=Morgan, age=Old], Person [firstName=Xoti, lastName=Eothas, age=20]]</string>
-  </void>
-  <void method="add">
-   <string>Person [firstName=dd, lastName=dddd, age=1]</string>
-  </void>
-  <void method="add">
-   <string>Person [firstName=dd, lastName=dddd, age=1]</string>
-  </void>
-  <void method="add">
-   <string>Person [firstName=ee, lastName=d, age=1]</string>
-  </void>
-  <void method="add">
-   <string>Person [firstName=ee, lastName=d, age=1]</string>
-  </void>
-  <void method="add">
-   <string>[Person [firstName=Abby, lastName=Anderson, age=20], Person [firstName=Ellie, lastName=Unknown, age=19], Person [firstName=Medi, lastName=Bota, age=22], Person [firstName=Daisy, lastName=Nagy, age=4], Person [firstName=Arthur, lastName=Morgan, age=Old], Person [firstName=Xoti, lastName=Eothas, age=20]]</string>
-  </void>
- </object>
+ <string>[Konto [userName=d, date=2020-12-20 at 23:16:26 CET, password=d, balance=1]]</string>
 </java>
