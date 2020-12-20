@@ -68,7 +68,7 @@ class Functions {
 		grid.setGridLinesVisible(true);
 		return grid;
 	}
-
+	
 	Button ButtonStyle(Button btn) {
 		btn.setMinWidth(80);
 		return btn;
