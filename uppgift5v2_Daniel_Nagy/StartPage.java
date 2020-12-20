@@ -1,6 +1,4 @@
-package uppgift5_Daniel_Nagy;
-
-import java.util.ArrayList;
+package uppgift5v2_Daniel_Nagy;
 
 import javafx.application.Application;
 import javafx.geometry.Insets;
@@ -10,14 +8,12 @@ import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
 
-public class Main extends Application {
+public class StartPage extends Application {
 
-	Boolean b = false;
 	private Stage stage;
 	Stage stageTwo;
-	Functions func = new Functions();
 	SceneOne sceneOne = new SceneOne();
-	SceneTwo sceneTwo = new SceneTwo();
+	//SceneTwo sceneTwo = new SceneTwo();
 
 	public static void main(String[] args) {
 		launch(args);
@@ -28,17 +24,14 @@ public class Main extends Application {
 		stage = primaryStage;
 		stageTwo = primaryStage;
 		Scene scene = new Scene(sceneOne.getGrid(), 400, 200);
-		Scene finalScene = new Scene(sceneTwo.getVbox());
+		//Scene finalScene = new Scene(sceneTwo.getVbox());
         stage.setScene(scene);
-        sceneOne.getCreate().setOnAction(e -> {
+        /*sceneOne.getCreate().setOnAction(e -> {
         	stage.setScene(finalScene);
         });
         sceneTwo.getBtnDone().setOnAction((e) -> {
         	stage.setScene(scene);
-        });
-        sceneOne.getLogin().setOnAction((e) -> {
-        	sceneOne.Access(b);
-        });
+        });*/
         primaryStage.show();
     }
 }

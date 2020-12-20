@@ -1,34 +1,47 @@
 package uppgift5_Daniel_Nagy;
 
+import java.util.ArrayList;
+
+import javafx.beans.property.ReadOnlyStringProperty;
+import javafx.beans.property.ReadOnlyStringWrapper;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
+
 class Konto {
-
-	private String owner;
-	private int acc;
+	private String userName;
+	private String date;
+	private String password;
 	private int balance;
-	private int money;
-	
-	public Konto(String owner, int acc, int balance, int money) {
-		super();
-		this.owner = owner;
-		this.acc = acc;
+
+	public Konto(String userName, String date, String password, int balance) {
+		this.userName = userName;
+		this.date = date;
+		this.password = password;
 		this.balance = balance;
-		this.money = money;
 	}
 
-	public String getOwner() {
-		return owner;
+	public String getUserName() {
+		return userName;
 	}
 
-	public void setOwner(String owner) {
-		this.owner = owner;
+	public void setUserName(String userName) {
+		this.userName = userName;
 	}
 
-	public int getAcc() {
-		return acc;
+	public String getDate() {
+		return date;
 	}
 
-	public void setAcc(int acc) {
-		this.acc = acc;
+	public void setDate(String date) {
+		this.date = date;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
 	}
 
 	public int getBalance() {
@@ -38,17 +51,9 @@ class Konto {
 	public void setBalance(int balance) {
 		this.balance = balance;
 	}
-
-	public int getMoney() {
-		return money;
-	}
-
-	public void setMoney(int money) {
-		this.money = money;
-	}
-	
 	@Override
-	public String toString() {
-		return "Konto [owner=" + owner + ", acc=" + acc + ", balance=" + balance + ", money=" + money + "]";
+	protected Object clone() throws CloneNotSupportedException {
+
+	    return super.clone();
 	}
 }
