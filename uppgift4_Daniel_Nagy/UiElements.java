@@ -26,7 +26,7 @@ class UiElements {
 	private Label firstName, lastName, age;
 	private Button btnAdd, btnUpdate, btnDelete, btnSer, btnDes;
 	private TextField fName, lName, ageText;
-	private ArrayList<String> s = new ArrayList<>();
+	private ArrayList<Person> s = new ArrayList<Person>();
 
 	public UiElements() {
 		Styles();
@@ -114,12 +114,11 @@ class UiElements {
 	    /* Add */
 		btnAdd.setOnAction((event) -> {
 			person = new Person(fName.getText(), lName.getText(), ageText.getText());
-			s.add(person.toString());
 			fName.clear();
 			lName.clear();
 			ageText.clear();
 			tableView.getItems().add(person);
-			s.add(person.toString());
+			s.add(person);
 		});
 		
 		/* Remove */
@@ -135,14 +134,16 @@ class UiElements {
 			//bortse hann inte med den
 			ObservableList<Person> selected, all;
 			selected = tableView.getSelectionModel().getSelectedItems();
-		    TableColumn<Person, String>  column = new TableColumn<>("Info");
-		    columnThree.setCellValueFactory(new PropertyValueFactory<>("firstName " + "lastName " + "age"));
+			person.setFirstName(fName.getText());
+			person.setLastName(lName.getText());
+			person.setAge(ageText.getText());
+			tableView.refresh();
 			
 		});
 		
 		/* Serialize */
 		btnSer.setOnAction((event) -> {
-			s.add(getList().toString());
+			s.addAll(list);
 			try {
 				ser.serializeToXML(s);
 			} catch (IOException e) {
@@ -153,11 +154,8 @@ class UiElements {
 		/* Deserialize */
 		
 		btnDes.setOnAction((event) -> {
-			try {
-				ser.deserializeFromXML();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
+			s = ser.deserializeFromXML();
+			list.addAll(s);
 		});		
 	}
 	

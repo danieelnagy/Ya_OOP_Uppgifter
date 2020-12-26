@@ -21,12 +21,11 @@ class SceneThree {
 	private Date dateNow = new Date(System.currentTimeMillis());
 	private String time;
 	FlowPane flow;
-	private String userName = "";
-	private String user;
-	private int balance;
+	private String userName;
+    int balance;
 	private int amountInsertMoney = 0;
 	private Functions functions;
-	private Button btnInsert, btnTakeOut, btnKvitto, btnSerialize, btnDeserialize;
+	private Button btnInsert, btnTakeOut, btnKvitto, btnSerialize;
 	private Label account, balanceLabel, takeOut, money, balanceShow;
 	private GridPane grid;
 	private HBox hbox;
@@ -44,9 +43,9 @@ class SceneThree {
 		functions = new Functions();
 
 		/* Labels */
-		account = new Label(user);
+		account = new Label(userName);
 		balanceLabel = new Label("Balance: ");
-		balanceShow = new Label();
+		balanceShow = new Label(String.valueOf(balance));
 		takeOut = new Label("Take money out");
 		money = new Label("Money to insert: ");
 
@@ -70,13 +69,10 @@ class SceneThree {
 		btnSerialize = new Button("Serialize");
 		btnSerialize = functions.ButtonStyle(btnSerialize);
 		
-		btnDeserialize = new Button("Deserialize OBS!!!FUNKAREJJJ" );
-		btnDeserialize = functions.ButtonStyle(btnDeserialize);
-		
 		/* FlowPane */
 		flow = new FlowPane();
 		flow.setAlignment(Pos.CENTER);
-		flow.getChildren().addAll(btnInsert,btnTakeOut,btnKvitto,btnDeserialize,btnSerialize);
+		flow.getChildren().addAll(btnInsert,btnTakeOut,btnKvitto,btnSerialize);
 
 		/* Grid */
 		grid = new GridPane();
@@ -114,6 +110,12 @@ class SceneThree {
 			time = getDate(time);
 			angryMe.getItems().add(time + " took out this much cash: " + Integer.parseInt(takeOutText.getText()) + " kr");
 		});
+		
+		btnTakeOut.setOnAction((event) -> {
+			amountInsertMoney = amountInsertMoney - Integer.parseInt(takeOutText.getText());
+			balanceShow.setText(String.valueOf(amountInsertMoney) + " kr");
+			time = getDate(time);
+		});
 
 		btnInsert.setOnAction((event) -> {
 			amountInsertMoney = amountInsertMoney + Integer.parseInt(moneyText.getText());
@@ -123,25 +125,14 @@ class SceneThree {
 		});
 		btnSerialize.setOnAction((event) -> {
 			try {
-				seri.serializeToXML(SceneTwo.list.toString());
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		});
-		btnDeserialize.setOnAction((event) -> {
-			/* FUNKAR EJ bortse */
-			try {
-				seri.deserializeFromXML(SceneTwo.list.toString());
+				seri.serializeToXML(SceneTwo.list);
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
 		});
 	}
 
-	String returnName(String s) {
-		return s;
-	}
-
+	
 	public VBox getVbox() {
 		return vbox;
 	}
@@ -162,4 +153,29 @@ class SceneThree {
 		time = (formatter.format(dateNow));
 		return time;
 	}
+
+	public String getUserName() {
+		return userName;
+	}
+
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
+
+	public int getBalance() {
+		return balance;
+	}
+
+	public void setBalance(int balance) {
+		this.balance = balance;
+	}
+
+	public Label getAccount() {
+		return account;
+	}
+
+	public void setAccount(Label account) {
+		this.account = account;
+	}
+	
 }

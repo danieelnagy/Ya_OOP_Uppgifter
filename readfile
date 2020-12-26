@@ -1,4 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <java version="14.0.2" class="java.beans.XMLDecoder">
- <string>[Konto [userName=d, date=2020-12-20 at 23:16:26 CET, password=d, balance=1]]</string>
+ <string>[Konto [userName=Dani, date=2020-12-26 at 22:08:55 CET, password=1111, balance=15]]</string>
 </java>

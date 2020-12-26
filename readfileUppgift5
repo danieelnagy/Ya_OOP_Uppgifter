@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<java version="14.0.2" class="java.beans.XMLDecoder">
+ <object class="java.util.ArrayList">
+  <void method="add">
+   <object class="uppgift5_Daniel_Nagy.Konto">
+    <void property="balance">
+     <int>15555</int>
+    </void>
+    <void property="date">
+     <string>2020-12-26 at 22:56:01 CET</string>
+    </void>
+    <void property="password">
+     <string>1111</string>
+    </void>
+    <void property="userName">
+     <string>dani</string>
+    </void>
+   </object>
+  </void>
+ </object>
+</java>
