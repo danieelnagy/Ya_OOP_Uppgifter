@@ -7,15 +7,21 @@ import javafx.stage.Stage;
 
 public class Main extends Application {
 
+	/*
 	Boolean b = false;
 	private Stage stage;
 	Stage stageTwo;
 	Functions func = new Functions();
-	SceneOne sceneOne = new SceneOne();
-	SceneTwo sceneTwo = new SceneTwo();
-	SceneThree sceneThree = new SceneThree();
+	LoginPage sceneOne = new LoginPage();
+	CreateAccountPage sceneTwo = new CreateAccountPage();
+	BankPage bankPage = new BankPage();
 	Save save = new Save();
 	Serialization ser = new Serialization();
+	*/
+	private Stage stage;
+	private LoginPage loginPage;
+	private CreateAccountPage createPage;
+	private Scene scene;
 
 	public static void main(String[] args) {
 		launch(args);
@@ -23,18 +29,50 @@ public class Main extends Application {
 
 	@Override
     public void start(Stage primaryStage) throws Exception {
+		/* LoginScene */
+		loginPage = new LoginPage();
+		stage = primaryStage;
+		scene = new Scene(loginPage.getGrid(), 400, 200);
+		
+		/* CreateAccountScene */ 
+		createPage = new CreateAccountPage();
+		Scene CreateAccountScene = new Scene(createPage.getVbox());
+		
+		/* LoginScene Events */
+		/*
+	        sceneOne.getLogin().setOnAction((e) -> {
+	        	b = sceneOne.Access(b);
+	        	if(b == true) {
+	        		stage.setScene(finalFinalScene);
+	        	}
+	        }); */
+	        
+	        loginPage.getBtnCreate().setOnAction(e -> {
+	        	stage.setScene(CreateAccountScene);
+	        	
+	        });
+		
+		
+		
+		
+		stage.setScene(scene);
+		primaryStage.show();
+		
+		
+		
+		/*
 		stage = primaryStage;
 		stageTwo = primaryStage;
 		Scene scene = new Scene(sceneOne.getGrid(), 400, 200);
 		Scene finalScene = new Scene(sceneTwo.getVbox());
-		Scene finalFinalScene = new Scene(sceneThree.getVbox());
+		Scene finalFinalScene = new Scene(bankPage.getVbox());
         stage.setScene(scene);
         sceneOne.getCreate().setOnAction(e -> {
         	stage.setScene(finalScene);
         	
         });
         sceneOne.getDecode().setOnAction(e -> {
-        	SceneTwo.list = ser.deserializeFromXML();
+        	CreateAccountPage.list = ser.deserializeFromXML();
         });
         sceneTwo.getBtnDone().setOnAction((e) -> {
         	stage.setScene(scene);
@@ -45,9 +83,27 @@ public class Main extends Application {
         		stage.setScene(finalFinalScene);
         	}
         });
-        sceneThree.getBtnKvitto().setOnAction((e) -> {
+        bankPage.getBtnKvitto().setOnAction((e) -> {
             save.SaveAcc();
         });
         primaryStage.show();
+        */
     }
+
+	public Stage getStage() {
+		return stage;
+	}
+
+	public void setStage(Stage stage) {
+		this.stage = stage;
+	}
+
+	public Scene getScene() {
+		return scene;
+	}
+
+	public void setScene(Scene scene) {
+		this.scene = scene;
+	}
+	
 }

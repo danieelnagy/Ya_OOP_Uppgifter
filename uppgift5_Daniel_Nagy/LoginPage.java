@@ -3,6 +3,7 @@ package uppgift5_Daniel_Nagy;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
@@ -10,11 +11,13 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.GridPane;
 
-class SceneOne {
+class LoginPage {
 	
-	SceneThree three;
+	BankPage bankPage;
+	Main main;
+	private CreateAccountPage createPage;
 	private Functions functions;
-	private Button create, login, decode;
+	private Button btnCreate, btnLogin;
 	private TextField userNameField;
 	private PasswordField pwField;
 	private Label pin;
@@ -24,18 +27,18 @@ class SceneOne {
 	String accName;
 	String pw;
 
-	public SceneOne() {
+	public LoginPage() {
 		Style();
 	}
 
 	void Style() {
 		
-		three = new SceneThree();
+		bankPage = new BankPage();
+		main = new Main();
 		functions = new Functions();
 		
-		create = new Button("Create account");
-		decode = new Button("Get accounts");
-		login = new Button("Login");
+		btnCreate = new Button("Create account");
+		btnLogin = new Button("Login");
 		pin = new Label(
 				"Please write in your pin & acc down below in the textboxes,\notherwise click on the create account button");
 
@@ -43,7 +46,6 @@ class SceneOne {
 
 		userNameField = new TextField();
 		userNameField.setPromptText("Type userName");
-		;
 		pwField = new PasswordField();
 		pwField.setPromptText("Type password");
 
@@ -60,33 +62,41 @@ class SceneOne {
 		GridPane.setHalignment(pin, HPos.CENTER);
 
 		/* Buttons */
-		GridPane.setHalignment(decode, HPos.LEFT);
-		decode.setMinWidth(100);
-		GridPane.setMargin(decode, new Insets(20, 20, 20, 20));
-		GridPane.setHalignment(create, HPos.CENTER);
-		create.setMinWidth(100);
-		GridPane.setMargin(create, new Insets(20, 20, 20, 20));
-		GridPane.setHalignment(login, HPos.RIGHT);
-		login.setMinWidth(100);
-		GridPane.setMargin(login, new Insets(20, 20, 20, 20));
+		GridPane.setHalignment(btnCreate, HPos.CENTER);
+		btnCreate.setMinWidth(100);
+		GridPane.setMargin(btnCreate, new Insets(20, 80, 20, 20));
+		GridPane.setHalignment(btnLogin, HPos.RIGHT);
+		btnLogin.setMinWidth(100);
+		GridPane.setMargin(btnLogin, new Insets(20, 20, 80, 20));
 
 		/* Grid */
 		grid = new GridPane();
 		grid = functions.GridStyleSceneOne(grid);
 		grid.add(pin, 0, 0);
 		grid.add(flow, 0, 1);
-		grid.add(create, 0, 2);
-		grid.add(login, 0, 2);
-		grid.add(decode, 0, 2);
+		grid.add(btnCreate, 0, 2);
+		grid.add(btnLogin, 0, 2);
+		
+		/* Events */
+		/*
+		btnCreate.setOnAction(e -> {
+        });
+		/*
+        btnLogin.setOnAction((e) -> {
+        	b = sceneOne.Access(b);
+        	if(b == true) {
+        		stage.setScene(finalFinalScene);
+        	}
+        }); */
 	}
-	
+	/*
 	Boolean Access(Boolean b) {
 		accName = userNameField.getText();
 		pw = pwField.getText();
-		for(int i = 0;i < SceneTwo.list.size();i++) {
-		if(accName.equals(SceneTwo.list.get(i).getUserName()) && pw.equals(SceneTwo.list.get(i).getPassword())) {
-			three.setUserName(SceneTwo.list.get(i).getUserName());
-			three.setBalance(SceneTwo.list.get(i).getBalance());
+		for(int i = 0;i < CreateAccountPage.list.size();i++) {
+		if(accName.equals(CreateAccountPage.list.get(i).getUserName()) && pw.equals(CreateAccountPage.list.get(i).getPassword())) {
+			bankPage.setUserName(CreateAccountPage.list.get(i).getUserName());
+			bankPage.setBalance(CreateAccountPage.list.get(i).getBalance());
 			b = true;
 		} else {
 			b = false;
@@ -94,7 +104,7 @@ class SceneOne {
 		}
 		return b;
 	}
-	
+	*/
 	String AccName(String userName) {
 		userName = userNameField.getText();
 		return userName;
@@ -104,32 +114,24 @@ class SceneOne {
 		return password;
 	}
 
-	public Button getCreate() {
-		return create;
-	}
-
-	public void setCreate(Button create) {
-		this.create = create;
-	}
-
-	public Button getLogin() {
-		return login;
-	}
-
-	public void setLogin(Button login) {
-		this.login = login;
-	}
-
 	public GridPane getGrid() {
 		return grid;
 	}
 
-	public Button getDecode() {
-		return decode;
+	public Button getBtnCreate() {
+		return btnCreate;
 	}
 
-	public void setDecode(Button decode) {
-		this.decode = decode;
+	public void setBtnCreate(Button btnCreate) {
+		this.btnCreate = btnCreate;
+	}
+
+	public Button getBtnLogin() {
+		return btnLogin;
+	}
+
+	public void setBtnLogin(Button btnLogin) {
+		this.btnLogin = btnLogin;
 	}
 	
 }

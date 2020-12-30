@@ -14,7 +14,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
-class SceneThree {
+class BankPage {
 
 	Serialization seri;
 	private SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd 'at' HH:mm:ss z");
@@ -32,7 +32,7 @@ class SceneThree {
 	private TextField takeOutText, moneyText;
 	private VBox vbox;
 
-	public SceneThree() {
+	public BankPage() {
 		Styles();
 	}
 
@@ -125,7 +125,7 @@ class SceneThree {
 		});
 		btnSerialize.setOnAction((event) -> {
 			try {
-				seri.serializeToXML(SceneTwo.list);
+				seri.serializeToXML(CreateAccountPage.list);
 			} catch (IOException e) {
 				e.printStackTrace();
 			}

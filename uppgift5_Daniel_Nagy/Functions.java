@@ -15,8 +15,8 @@ import javafx.scene.layout.RowConstraints;
 
 class Functions {
 
-	SceneOne sceneOne;
-	SceneTwo sceneTwo;
+	LoginPage sceneOne;
+	CreateAccountPage sceneTwo;
 	private ArrayList<Konto> kontoList = new ArrayList<>();
 
 	public ArrayList<Konto> getKontoList() {

@@ -11,7 +11,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
-class SceneTwo {
+class CreateAccountPage {
 
 	static ArrayList<Konto> list = new ArrayList<>();
 	private SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd 'at' HH:mm:ss z");
@@ -27,7 +27,7 @@ class SceneTwo {
 	private VBox vbox;
 	private Konto konto;
 
-	public SceneTwo() {
+	public CreateAccountPage() {
 		Styles();
 	}
 

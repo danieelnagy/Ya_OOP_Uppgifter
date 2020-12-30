@@ -52,11 +52,4 @@ public class Konto implements Serializable {
 	public void setBalance(int balance) {
 		this.balance = balance;
 	}
-
-	@Override
-	public String toString() {
-		return "Konto [userName=" + userName + ", date=" + date + ", password=" + password + ", balance=" + balance
-				+ "]";
-	}
-	
 }

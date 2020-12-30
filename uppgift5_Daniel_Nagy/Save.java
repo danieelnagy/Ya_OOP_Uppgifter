@@ -8,9 +8,9 @@ public class Save {
 	public void SaveAcc() {
 		try {
 			FileWriter myWriter = new FileWriter("kvitto.txt");
-			for (int i = 0; i < SceneTwo.list.size(); i++) {
-				myWriter.write(SceneTwo.list.get(i).getUserName() + " " + SceneTwo.list.get(i).getPassword() + " "
-						+ SceneTwo.list.get(i).getDate() + " " + SceneTwo.list.get(i).getBalance());
+			for (int i = 0; i < CreateAccountPage.list.size(); i++) {
+				myWriter.write(CreateAccountPage.list.get(i).getUserName() + " " + CreateAccountPage.list.get(i).getPassword() + " "
+						+ CreateAccountPage.list.get(i).getDate() + " " + CreateAccountPage.list.get(i).getBalance());
 				myWriter.close();
 				System.out.println("Successfully wrote to the file.");
 			}
