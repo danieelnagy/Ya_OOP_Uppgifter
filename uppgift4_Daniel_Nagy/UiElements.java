@@ -24,9 +24,10 @@ class UiElements {
 	private GridPane gridPane;
 	private TableView<Person> tableView;
 	private Label firstName, lastName, age;
-	private Button btnAdd, btnUpdate, btnDelete, btnSer, btnDes;
+	private Button btnAdd, btnUpdate, btnDelete, btnSave;
 	private TextField fName, lName, ageText;
 	private ArrayList<Person> s = new ArrayList<Person>();
+	Person personList[];
 
 	public UiElements() {
 		Styles();
@@ -61,8 +62,7 @@ class UiElements {
 		btnAdd = new Button("Add");
 		btnUpdate = new Button("Update");
 		btnDelete = new Button("Delete");
-		btnSer = new Button("Serialize");
-		btnDes = new Button("Deserialize");
+		btnSave = new Button("Save");
 		gridPane.add(btnAdd, 0, 0);
 		GridPane.setHalignment(btnAdd, HPos.RIGHT);
 		btnAdd.setMinWidth(80);
@@ -72,12 +72,9 @@ class UiElements {
 		gridPane.add(btnUpdate, 0, 2);
 		GridPane.setHalignment(btnUpdate, HPos.RIGHT);
 		btnUpdate.setMinWidth(80);
-		gridPane.add(btnSer, 0, 3);
-		GridPane.setHalignment(btnSer, HPos.RIGHT);
-		btnSer.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
-		gridPane.add(btnDes, 0, 4);
-		GridPane.setHalignment(btnDes, HPos.LEFT);
-		btnDes.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
+		gridPane.add(btnSave, 0, 3);
+		GridPane.setHalignment(btnSave, HPos.RIGHT);
+		btnSave.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
 
 		/* TextFields */
 		fName = new TextField("");
@@ -117,8 +114,9 @@ class UiElements {
 			fName.clear();
 			lName.clear();
 			ageText.clear();
-			tableView.getItems().add(person);
-			s.add(person);
+			list.add(person);
+			//tableView.getItems().add(person);
+
 		});
 		
 		/* Remove */
@@ -142,26 +140,21 @@ class UiElements {
 		});
 		
 		/* Serialize */
-		btnSer.setOnAction((event) -> {
+		btnSave.setOnAction((event) -> {
 			s.addAll(list);
 			try {
 				ser.serializeToXML(s);
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
+			/*s = ser.deserializeFromXML();
+			list.addAll(s);*/
 		});
-		
-		/* Deserialize */
-		
-		btnDes.setOnAction((event) -> {
-			s = ser.deserializeFromXML();
-			list.addAll(s);
-		});		
 	}
 	
 	void Rows() {
 		int numCols = 1;
-		int numRows = 5;
+		int numRows = 4;
 		for (int i = 0; i < numCols; i++) {
 			ColumnConstraints colConst = new ColumnConstraints();
 			colConst.setPercentWidth(100 / numCols);
@@ -175,13 +168,9 @@ class UiElements {
 	}
 	
 	public ObservableList<Person> getList() {
-	list = FXCollections.observableArrayList(
-	new Person("Abby", "Anderson", "20"),
-	new Person("Ellie", "Unknown", "19"),
-	new Person("Medi", "Bota", "22"),
-	new Person("Daisy", "Nagy", "4"),
-	new Person("Arthur", "Morgan", "Old"),
-	new Person("Xoti", "Eothas", "20"));
+	list = FXCollections.observableArrayList();
+	s = ser.deserializeFromXML();
+	list.addAll(s);
 	return list;
 	}
 }

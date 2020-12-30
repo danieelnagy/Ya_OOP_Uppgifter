@@ -12,30 +12,33 @@ import java.util.ArrayList;
 
 import javafx.collections.ObservableList;
 
-
 class Serialization {
 
-	private static final String SERIALIZED_FILE_NAME="readfile";
-	
+	private static final String SERIALIZED_FILE_NAME = "list.xml";
+
 	void serializeToXML(ArrayList<Person> s) throws IOException {
-		
+
 		XMLEncoder e = new XMLEncoder(new BufferedOutputStream(new FileOutputStream(SERIALIZED_FILE_NAME)));
 		e.writeObject(s);
+		e.flush();
 		e.close();
 	}
-	
+
 	ArrayList<Person> deserializeFromXML() {
 		XMLDecoder decoder = null;
-			try {
-				decoder = new XMLDecoder(new BufferedInputStream(new FileInputStream(SERIALIZED_FILE_NAME)));
-			} catch (FileNotFoundException e) {
-				e.printStackTrace();
-			}
+
+		try {
+			decoder = new XMLDecoder(new BufferedInputStream(new FileInputStream(SERIALIZED_FILE_NAME)));
+
 			System.out.println("File stream opened and XMLDecoder created");
 			System.out.println("Reading Object...");
 			ArrayList<Person> personList = (ArrayList<Person>) decoder.readObject();
 			System.out.println("Reading Object Done!");
 			decoder.close();
 			return personList;
+		} catch (FileNotFoundException fileNotFound) {
+			System.out.println(SERIALIZED_FILE_NAME + " not found");
+		}
+		return null;
 	}
 }
