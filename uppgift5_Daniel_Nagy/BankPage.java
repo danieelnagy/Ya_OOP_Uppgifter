@@ -66,7 +66,7 @@ class BankPage {
 		btnKvitto = new Button("Kvitto");
 		btnKvitto = functions.ButtonStyle(btnKvitto);
 		
-		btnSerialize = new Button("Serialize");
+		btnSerialize = new Button("Save");
 		btnSerialize = functions.ButtonStyle(btnSerialize);
 		
 		/* FlowPane */
