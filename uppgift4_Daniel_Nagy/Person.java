@@ -5,9 +5,9 @@ import java.io.Serializable;
 public class Person implements Serializable {
 
 	private static final long serialVersionUID = -8430765870555791111L;
-	private String firstName = null;
-    private String lastName = null;
-    private String age = null;
+	private String firstName;
+    private String lastName;
+    private String age;
 
     public Person() {
     }
@@ -33,11 +33,6 @@ public class Person implements Serializable {
     public void setLastName(String lastName) {
         this.lastName = lastName;
     }
-	@Override
-	public String toString() {
-		return "Person [firstName=" + firstName + ", lastName=" + lastName + ", age=" + age + "]";
-	}
-
 	public String getAge() {
 		return age;
 	}

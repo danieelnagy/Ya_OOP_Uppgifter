@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<java version="14.0.2" class="java.beans.XMLDecoder">
+ <object class="java.util.ArrayList">
+  <void method="add">
+   <object class="uppgift4_Daniel_Nagy.Person">
+    <void property="age">
+     <string>0</string>
+    </void>
+    <void property="firstName">
+     <string>Save</string>
+    </void>
+    <void property="lastName">
+     <string>Button</string>
+    </void>
+   </object>
+  </void>
+  <void method="add">
+   <object class="uppgift4_Daniel_Nagy.Person">
+    <void property="age">
+     <string>1</string>
+    </void>
+    <void property="firstName">
+     <string>Helt</string>
+    </void>
+    <void property="lastName">
+     <string>Onödigt</string>
+    </void>
+   </object>
+  </void>
+  <void method="add">
+   <object class="uppgift4_Daniel_Nagy.Person">
+    <void property="age">
+     <string>2</string>
+    </void>
+    <void property="firstName">
+     <string>Den</string>
+    </void>
+    <void property="lastName">
+     <string>Är</string>
+    </void>
+   </object>
+  </void>
+  <void method="add">
+   <object class="uppgift4_Daniel_Nagy.Person">
+    <void property="age">
+     <string>3</string>
+    </void>
+    <void property="firstName">
+     <string>Bara</string>
+    </void>
+    <void property="lastName">
+     <string>Kvar</string>
+    </void>
+   </object>
+  </void>
+ </object>
+</java>

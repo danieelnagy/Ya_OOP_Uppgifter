@@ -11,10 +11,10 @@ import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.GridPane;
 
 class SceneOne {
-
+	
 	SceneThree three;
 	private Functions functions;
-	private Button create, login;
+	private Button create, login, decode;
 	private TextField userNameField;
 	private PasswordField pwField;
 	private Label pin;
@@ -29,9 +29,12 @@ class SceneOne {
 	}
 
 	void Style() {
+		
 		three = new SceneThree();
 		functions = new Functions();
+		
 		create = new Button("Create account");
+		decode = new Button("Get accounts");
 		login = new Button("Login");
 		pin = new Label(
 				"Please write in your pin & acc down below in the textboxes,\notherwise click on the create account button");
@@ -57,12 +60,15 @@ class SceneOne {
 		GridPane.setHalignment(pin, HPos.CENTER);
 
 		/* Buttons */
-		GridPane.setHalignment(create, HPos.LEFT);
+		GridPane.setHalignment(decode, HPos.LEFT);
+		decode.setMinWidth(100);
+		GridPane.setMargin(decode, new Insets(20, 20, 20, 20));
+		GridPane.setHalignment(create, HPos.CENTER);
 		create.setMinWidth(100);
-		GridPane.setMargin(create, new Insets(20, 20, 20, 80));
+		GridPane.setMargin(create, new Insets(20, 20, 20, 20));
 		GridPane.setHalignment(login, HPos.RIGHT);
 		login.setMinWidth(100);
-		GridPane.setMargin(login, new Insets(20, 80, 20, 20));
+		GridPane.setMargin(login, new Insets(20, 20, 20, 20));
 
 		/* Grid */
 		grid = new GridPane();
@@ -71,15 +77,16 @@ class SceneOne {
 		grid.add(flow, 0, 1);
 		grid.add(create, 0, 2);
 		grid.add(login, 0, 2);
+		grid.add(decode, 0, 2);
 	}
 	
 	Boolean Access(Boolean b) {
-		SceneThree scene = new SceneThree();
 		accName = userNameField.getText();
 		pw = pwField.getText();
 		for(int i = 0;i < SceneTwo.list.size();i++) {
 		if(accName.equals(SceneTwo.list.get(i).getUserName()) && pw.equals(SceneTwo.list.get(i).getPassword())) {
-			three.returnName(accName);
+			three.setUserName(SceneTwo.list.get(i).getUserName());
+			three.setBalance(SceneTwo.list.get(i).getBalance());
 			b = true;
 		} else {
 			b = false;
@@ -116,4 +123,13 @@ class SceneOne {
 	public GridPane getGrid() {
 		return grid;
 	}
+
+	public Button getDecode() {
+		return decode;
+	}
+
+	public void setDecode(Button decode) {
+		this.decode = decode;
+	}
+	
 }

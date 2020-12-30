@@ -14,6 +14,8 @@ public class Main extends Application {
 	SceneOne sceneOne = new SceneOne();
 	SceneTwo sceneTwo = new SceneTwo();
 	SceneThree sceneThree = new SceneThree();
+	Save save = new Save();
+	Serialization ser = new Serialization();
 
 	public static void main(String[] args) {
 		launch(args);
@@ -29,6 +31,10 @@ public class Main extends Application {
         stage.setScene(scene);
         sceneOne.getCreate().setOnAction(e -> {
         	stage.setScene(finalScene);
+        	
+        });
+        sceneOne.getDecode().setOnAction(e -> {
+        	SceneTwo.list = ser.deserializeFromXML();
         });
         sceneTwo.getBtnDone().setOnAction((e) -> {
         	stage.setScene(scene);
@@ -40,8 +46,7 @@ public class Main extends Application {
         	}
         });
         sceneThree.getBtnKvitto().setOnAction((e) -> {
-            Save save = new Save();
-            save.Save();
+            save.SaveAcc();
         });
         primaryStage.show();
     }

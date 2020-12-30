@@ -1,10 +1,18 @@
 package uppgift5_Daniel_Nagy;
 
-class Konto {
+import java.io.Serializable;
+
+public class Konto implements Serializable {
+	
+	private static final long serialVersionUID = 1L;
 	private String userName;
 	private String date;
 	private String password;
 	private int balance;
+	
+	public Konto() {
+		
+	}
 
 	public Konto(String userName, String date, String password, int balance) {
 		this.userName = userName;

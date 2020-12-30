@@ -1,5 +1,6 @@
 package uppgift4_Daniel_Nagy;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import javafx.collections.FXCollections;
@@ -17,16 +18,16 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.RowConstraints;
 
 class UiElements {
-	
+
 	private Person person;
 	private ObservableList<Person> list;
 	private Serialization ser = new Serialization();
 	private GridPane gridPane;
 	private TableView<Person> tableView;
 	private Label firstName, lastName, age;
-	private Button btnAdd, btnUpdate, btnDelete, btnSer, btnDes;
+	private Button btnAdd, btnUpdate, btnDelete, btnSave;
 	private TextField fName, lName, ageText;
-	private ArrayList<String> s = new ArrayList<>();
+	private ArrayList<Person> s = new ArrayList<Person>();
 
 	public UiElements() {
 		Styles();
@@ -61,8 +62,7 @@ class UiElements {
 		btnAdd = new Button("Add");
 		btnUpdate = new Button("Update");
 		btnDelete = new Button("Delete");
-		btnSer = new Button("Serialize");
-		btnDes = new Button("Deserialize");
+		btnSave = new Button("Save");
 		gridPane.add(btnAdd, 0, 0);
 		GridPane.setHalignment(btnAdd, HPos.RIGHT);
 		btnAdd.setMinWidth(80);
@@ -72,12 +72,9 @@ class UiElements {
 		gridPane.add(btnUpdate, 0, 2);
 		GridPane.setHalignment(btnUpdate, HPos.RIGHT);
 		btnUpdate.setMinWidth(80);
-		gridPane.add(btnSer, 0, 3);
-		GridPane.setHalignment(btnSer, HPos.RIGHT);
-		btnSer.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
-		gridPane.add(btnDes, 0, 4);
-		GridPane.setHalignment(btnDes, HPos.LEFT);
-		btnDes.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
+		gridPane.add(btnSave, 0, 3);
+		GridPane.setHalignment(btnSave, HPos.RIGHT);
+		btnSave.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
 
 		/* TextFields */
 		fName = new TextField("");
@@ -96,74 +93,65 @@ class UiElements {
 		gridPane.add(ageText, 0, 2);
 		ageText.setMaxSize(350, 20);
 		GridPane.setHalignment(ageText, HPos.CENTER);
-		
+
 		/* Table */
 
-		tableView = new TableView<>();
-	    TableColumn<Person, String> columnOne = new TableColumn<>("First name");
-	    columnOne.setCellValueFactory(new PropertyValueFactory<>("firstName"));
-	    TableColumn<Person, String>  columnTwo = new TableColumn<>("Last name");
-	    columnTwo.setCellValueFactory(new PropertyValueFactory<>("lastName"));
-	    TableColumn<Person, String>  columnThree = new TableColumn<>("Age");
-	    columnThree.setCellValueFactory(new PropertyValueFactory<>("age"));
-	    tableView.getColumns().addAll(columnOne, columnTwo, columnThree);
-	    tableView.setItems(getList());
-	    
+		tableView = new TableView<Person>();
+		TableColumn<Person, String> columnOne = new TableColumn<>("First name");
+		columnOne.setCellValueFactory(new PropertyValueFactory<>("firstName"));
+		TableColumn<Person, String> columnTwo = new TableColumn<>("Last name");
+		columnTwo.setCellValueFactory(new PropertyValueFactory<>("lastName"));
+		TableColumn<Person, String> columnThree = new TableColumn<>("Age");
+		columnThree.setCellValueFactory(new PropertyValueFactory<>("age"));
+		tableView.getColumns().addAll(columnOne, columnTwo, columnThree);
+		tableView.setItems(getList());
 		/* Events */
-	    
-	    /* Add */
+
+		/* Add */
 		btnAdd.setOnAction((event) -> {
 			person = new Person(fName.getText(), lName.getText(), ageText.getText());
-			s.add(person.toString());
+			tableView.getItems().add(person);
+			s.add(person);
 			fName.clear();
 			lName.clear();
 			ageText.clear();
-			tableView.getItems().add(person);
-			s.add(person.toString());
 		});
-		
+
 		/* Remove */
 		btnDelete.setOnAction((event) -> {
-			ObservableList<Person> selected, all;
-			all = tableView.getItems();
-			selected = tableView.getSelectionModel().getSelectedItems();
-			selected.forEach(all::remove);
+
+			Person pers = tableView.getSelectionModel().getSelectedItem();
+			tableView.getItems().remove(pers);
+			s.remove(pers);
+			tableView.refresh();
+
 		});
-		
+
 		/* Update */
 		btnUpdate.setOnAction((event) -> {
-			//bortse hann inte med den
-			ObservableList<Person> selected, all;
-			selected = tableView.getSelectionModel().getSelectedItems();
-		    TableColumn<Person, String>  column = new TableColumn<>("Info");
-		    columnThree.setCellValueFactory(new PropertyValueFactory<>("firstName " + "lastName " + "age"));
-			
+
+			Person pers = tableView.getSelectionModel().getSelectedItem();
+			pers.setFirstName(fName.getText());
+			pers.setLastName(lName.getText());
+			pers.setAge(ageText.getText());
+			tableView.refresh();
+
 		});
-		
+
 		/* Serialize */
-		btnSer.setOnAction((event) -> {
-			s.add(getList().toString());
+
+		btnSave.setOnAction((event) -> {
 			try {
 				ser.serializeToXML(s);
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
 		});
-		
-		/* Deserialize */
-		
-		btnDes.setOnAction((event) -> {
-			try {
-				ser.deserializeFromXML();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		});		
 	}
-	
+
 	void Rows() {
 		int numCols = 1;
-		int numRows = 5;
+		int numRows = 4;
 		for (int i = 0; i < numCols; i++) {
 			ColumnConstraints colConst = new ColumnConstraints();
 			colConst.setPercentWidth(100 / numCols);
@@ -175,15 +163,24 @@ class UiElements {
 			gridPane.getRowConstraints().add(rowConst);
 		}
 	}
-	
+
 	public ObservableList<Person> getList() {
-	list = FXCollections.observableArrayList(
-	new Person("Abby", "Anderson", "20"),
-	new Person("Ellie", "Unknown", "19"),
-	new Person("Medi", "Bota", "22"),
-	new Person("Daisy", "Nagy", "4"),
-	new Person("Arthur", "Morgan", "Old"),
-	new Person("Xoti", "Eothas", "20"));
-	return list;
+		list = FXCollections.observableArrayList();
+		s = ser.deserializeFromXML(s);
+		if(s.isEmpty()) {
+			;
+		} else {
+		list.addAll(s); 
+		}
+		return list;
 	}
+
+	public ArrayList<Person> getS() {
+		return s;
+	}
+
+	public void setS(ArrayList<Person> s) {
+		this.s = s;
+	}
+	
 }
