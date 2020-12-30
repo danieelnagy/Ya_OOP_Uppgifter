@@ -96,7 +96,7 @@ class UiElements {
 		
 		/* Table */
 
-		tableView = new TableView<>();
+		tableView = new TableView<Person>();
 	    TableColumn<Person, String> columnOne = new TableColumn<>("First name");
 	    columnOne.setCellValueFactory(new PropertyValueFactory<>("firstName"));
 	    TableColumn<Person, String>  columnTwo = new TableColumn<>("Last name");
@@ -111,44 +111,43 @@ class UiElements {
 	    /* Add */
 		btnAdd.setOnAction((event) -> {
 			person = new Person(fName.getText(), lName.getText(), ageText.getText());
+			tableView.getItems().add(person);
+			s.add(person);
 			fName.clear();
 			lName.clear();
 			ageText.clear();
-			list.add(person);
-			//tableView.getItems().add(person);
-
 		});
 		
 		/* Remove */
 		btnDelete.setOnAction((event) -> {
-			ObservableList<Person> selected, all;
-			all = tableView.getItems();
-			selected = tableView.getSelectionModel().getSelectedItems();
-			selected.forEach(all::remove);
+			
+			Person pers = tableView.getSelectionModel().getSelectedItem();
+			tableView.getItems().remove(pers);
+			s.remove(pers); 
+			tableView.refresh();
+			
 		});
 		
 		/* Update */
 		btnUpdate.setOnAction((event) -> {
-			//bortse hann inte med den
-			ObservableList<Person> selected, all;
-			selected = tableView.getSelectionModel().getSelectedItems();
-			person.setFirstName(fName.getText());
-			person.setLastName(lName.getText());
-			person.setAge(ageText.getText());
+			
+			Person pers = tableView.getSelectionModel().getSelectedItem();
+			pers.setFirstName(fName.getText());
+			pers.setLastName(lName.getText());
+			pers.setAge(ageText.getText());
 			tableView.refresh();
 			
 		});
 		
 		/* Serialize */
+		
+		
 		btnSave.setOnAction((event) -> {
-			s.addAll(list);
 			try {
 				ser.serializeToXML(s);
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
-			/*s = ser.deserializeFromXML();
-			list.addAll(s);*/
 		});
 	}
 	
@@ -166,7 +165,7 @@ class UiElements {
 			gridPane.getRowConstraints().add(rowConst);
 		}
 	}
-	
+
 	public ObservableList<Person> getList() {
 	list = FXCollections.observableArrayList();
 	s = ser.deserializeFromXML();

@@ -14,13 +14,12 @@ import javafx.collections.ObservableList;
 
 class Serialization {
 
-	private static final String SERIALIZED_FILE_NAME = "list.xml";
+	static final String SERIALIZED_FILE_NAME = "list.xml";
 
 	void serializeToXML(ArrayList<Person> s) throws IOException {
 
 		XMLEncoder e = new XMLEncoder(new BufferedOutputStream(new FileOutputStream(SERIALIZED_FILE_NAME)));
 		e.writeObject(s);
-		e.flush();
 		e.close();
 	}
 

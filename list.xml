@@ -4,26 +4,26 @@
   <void method="add">
    <object class="uppgift4_Daniel_Nagy.Person">
     <void property="age">
-     <string>1</string>
+     <string>123</string>
     </void>
     <void property="firstName">
-     <string>d</string>
+     <string>high</string>
     </void>
     <void property="lastName">
-     <string>d</string>
+     <string>hopes</string>
     </void>
    </object>
   </void>
   <void method="add">
    <object class="uppgift4_Daniel_Nagy.Person">
     <void property="age">
-     <string>1</string>
+     <string>23</string>
     </void>
     <void property="firstName">
-     <string>we</string>
+     <string>jag</string>
     </void>
     <void property="lastName">
-     <string>we</string>
+     <string>du</string>
     </void>
    </object>
   </void>
