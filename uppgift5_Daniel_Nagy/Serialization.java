@@ -12,7 +12,7 @@ import java.util.ArrayList;
 
 class Serialization {
 
-	private static final String SERIALIZED_FILE_NAME="readfileUppgift5";
+	private static final String SERIALIZED_FILE_NAME="readfileUppgift5".xml;
 	
 	void serializeToXML(ArrayList<Konto> s) throws IOException {
 		
