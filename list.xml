@@ -4,26 +4,52 @@
   <void method="add">
    <object class="uppgift4_Daniel_Nagy.Person">
     <void property="age">
-     <string>123</string>
+     <string>0</string>
     </void>
     <void property="firstName">
-     <string>high</string>
+     <string>Save</string>
     </void>
     <void property="lastName">
-     <string>hopes</string>
+     <string>Button</string>
     </void>
    </object>
   </void>
   <void method="add">
    <object class="uppgift4_Daniel_Nagy.Person">
     <void property="age">
-     <string>23</string>
+     <string>1</string>
     </void>
     <void property="firstName">
-     <string>jag</string>
+     <string>Helt</string>
     </void>
     <void property="lastName">
-     <string>du</string>
+     <string>Onödigt</string>
+    </void>
+   </object>
+  </void>
+  <void method="add">
+   <object class="uppgift4_Daniel_Nagy.Person">
+    <void property="age">
+     <string>2</string>
+    </void>
+    <void property="firstName">
+     <string>Den</string>
+    </void>
+    <void property="lastName">
+     <string>Är</string>
+    </void>
+   </object>
+  </void>
+  <void method="add">
+   <object class="uppgift4_Daniel_Nagy.Person">
+    <void property="age">
+     <string>3</string>
+    </void>
+    <void property="firstName">
+     <string>Bara</string>
+    </void>
+    <void property="lastName">
+     <string>Kvar</string>
     </void>
    </object>
   </void>

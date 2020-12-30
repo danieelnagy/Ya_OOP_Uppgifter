@@ -1,5 +1,6 @@
 package uppgift4_Daniel_Nagy;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import javafx.collections.FXCollections;
@@ -17,7 +18,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.RowConstraints;
 
 class UiElements {
-	
+
 	private Person person;
 	private ObservableList<Person> list;
 	private Serialization ser = new Serialization();
@@ -27,7 +28,6 @@ class UiElements {
 	private Button btnAdd, btnUpdate, btnDelete, btnSave;
 	private TextField fName, lName, ageText;
 	private ArrayList<Person> s = new ArrayList<Person>();
-	Person personList[];
 
 	public UiElements() {
 		Styles();
@@ -93,22 +93,21 @@ class UiElements {
 		gridPane.add(ageText, 0, 2);
 		ageText.setMaxSize(350, 20);
 		GridPane.setHalignment(ageText, HPos.CENTER);
-		
+
 		/* Table */
 
 		tableView = new TableView<Person>();
-	    TableColumn<Person, String> columnOne = new TableColumn<>("First name");
-	    columnOne.setCellValueFactory(new PropertyValueFactory<>("firstName"));
-	    TableColumn<Person, String>  columnTwo = new TableColumn<>("Last name");
-	    columnTwo.setCellValueFactory(new PropertyValueFactory<>("lastName"));
-	    TableColumn<Person, String>  columnThree = new TableColumn<>("Age");
-	    columnThree.setCellValueFactory(new PropertyValueFactory<>("age"));
-	    tableView.getColumns().addAll(columnOne, columnTwo, columnThree);
-	    tableView.setItems(getList());
-	    
+		TableColumn<Person, String> columnOne = new TableColumn<>("First name");
+		columnOne.setCellValueFactory(new PropertyValueFactory<>("firstName"));
+		TableColumn<Person, String> columnTwo = new TableColumn<>("Last name");
+		columnTwo.setCellValueFactory(new PropertyValueFactory<>("lastName"));
+		TableColumn<Person, String> columnThree = new TableColumn<>("Age");
+		columnThree.setCellValueFactory(new PropertyValueFactory<>("age"));
+		tableView.getColumns().addAll(columnOne, columnTwo, columnThree);
+		tableView.setItems(getList());
 		/* Events */
-	    
-	    /* Add */
+
+		/* Add */
 		btnAdd.setOnAction((event) -> {
 			person = new Person(fName.getText(), lName.getText(), ageText.getText());
 			tableView.getItems().add(person);
@@ -117,31 +116,30 @@ class UiElements {
 			lName.clear();
 			ageText.clear();
 		});
-		
+
 		/* Remove */
 		btnDelete.setOnAction((event) -> {
-			
+
 			Person pers = tableView.getSelectionModel().getSelectedItem();
 			tableView.getItems().remove(pers);
-			s.remove(pers); 
+			s.remove(pers);
 			tableView.refresh();
-			
+
 		});
-		
+
 		/* Update */
 		btnUpdate.setOnAction((event) -> {
-			
+
 			Person pers = tableView.getSelectionModel().getSelectedItem();
 			pers.setFirstName(fName.getText());
 			pers.setLastName(lName.getText());
 			pers.setAge(ageText.getText());
 			tableView.refresh();
-			
+
 		});
-		
+
 		/* Serialize */
-		
-		
+
 		btnSave.setOnAction((event) -> {
 			try {
 				ser.serializeToXML(s);
@@ -150,7 +148,7 @@ class UiElements {
 			}
 		});
 	}
-	
+
 	void Rows() {
 		int numCols = 1;
 		int numRows = 4;
@@ -167,9 +165,22 @@ class UiElements {
 	}
 
 	public ObservableList<Person> getList() {
-	list = FXCollections.observableArrayList();
-	s = ser.deserializeFromXML();
-	list.addAll(s);
-	return list;
+		list = FXCollections.observableArrayList();
+		s = ser.deserializeFromXML(s);
+		if(s.isEmpty()) {
+			;
+		} else {
+		list.addAll(s); 
+		}
+		return list;
 	}
+
+	public ArrayList<Person> getS() {
+		return s;
+	}
+
+	public void setS(ArrayList<Person> s) {
+		this.s = s;
+	}
+	
 }

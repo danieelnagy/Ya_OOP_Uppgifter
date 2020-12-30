@@ -10,8 +10,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import javafx.collections.ObservableList;
-
 class Serialization {
 
 	static final String SERIALIZED_FILE_NAME = "list.xml";
@@ -23,21 +21,19 @@ class Serialization {
 		e.close();
 	}
 
-	ArrayList<Person> deserializeFromXML() {
+	ArrayList<Person> deserializeFromXML(ArrayList<Person> s) {
 		XMLDecoder decoder = null;
 
 		try {
 			decoder = new XMLDecoder(new BufferedInputStream(new FileInputStream(SERIALIZED_FILE_NAME)));
-
 			System.out.println("File stream opened and XMLDecoder created");
 			System.out.println("Reading Object...");
-			ArrayList<Person> personList = (ArrayList<Person>) decoder.readObject();
+			s = (ArrayList<Person>) decoder.readObject();
 			System.out.println("Reading Object Done!");
 			decoder.close();
-			return personList;
 		} catch (FileNotFoundException fileNotFound) {
 			System.out.println(SERIALIZED_FILE_NAME + " not found");
 		}
-		return null;
+		return s;
 	}
 }
