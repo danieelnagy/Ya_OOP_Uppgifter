@@ -20,30 +20,31 @@ class BankPage {
 	private SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd 'at' HH:mm:ss z");
 	private Date dateNow = new Date(System.currentTimeMillis());
 	private String time;
+	private String owner;
 	FlowPane flow;
-	private String userName;
-    int balance;
+    private int balance;
 	private int amountInsertMoney = 0;
 	private Functions functions;
 	private Button btnInsert, btnTakeOut, btnKvitto, btnSerialize;
-	private Label account, balanceLabel, takeOut, money, balanceShow;
+	private Label account, accountShow, balanceLabel, takeOut, money, balanceShow;
 	private GridPane grid;
 	private HBox hbox;
 	private TextField takeOutText, moneyText;
 	private VBox vbox;
 
 	public BankPage() {
-		Styles();
+		bankStyles();
 	}
 
-	void Styles() {
+	void bankStyles() {
 		seri = new Serialization();
 		ListView<String> angryMe = new ListView<String>();
 		vbox = new VBox();
 		functions = new Functions();
 
 		/* Labels */
-		account = new Label(userName);
+		account = new Label("Owner: ");
+		accountShow = new Label(owner);
 		balanceLabel = new Label("Balance: ");
 		balanceShow = new Label(String.valueOf(balance));
 		takeOut = new Label("Take money out");
@@ -154,12 +155,12 @@ class BankPage {
 		return time;
 	}
 
-	public String getUserName() {
-		return userName;
+	public String getOwner() {
+		return owner;
 	}
 
-	public void setUserName(String userName) {
-		this.userName = userName;
+	public void setOwner(String owner) {
+		this.owner = owner;
 	}
 
 	public int getBalance() {
@@ -168,14 +169,6 @@ class BankPage {
 
 	public void setBalance(int balance) {
 		this.balance = balance;
-	}
-
-	public Label getAccount() {
-		return account;
-	}
-
-	public void setAccount(Label account) {
-		this.account = account;
 	}
 	
 }

@@ -32,7 +32,6 @@ class LoginPage {
 	}
 
 	void Style() {
-		
 		bankPage = new BankPage();
 		main = new Main();
 		functions = new Functions();
@@ -77,7 +76,43 @@ class LoginPage {
 		grid.add(btnCreate, 0, 2);
 		grid.add(btnLogin, 0, 2);
 		
+		
 		/* Events */
+		
+		/* CreateAccountScene */ 
+		createPage = new CreateAccountPage();
+		Scene CreateAccountScene = new Scene(createPage.getVbox());
+		
+		/* BankPage */
+		bankPage = new BankPage();
+		Scene manageBankScene = new Scene(bankPage.getVbox());
+		
+		
+		/* LoginScene Events */
+		/*
+	        sceneOne.getLogin().setOnAction((e) -> {
+	        	b = sceneOne.Access(b);
+	        	if(b == true) {
+	        		stage.setScene(finalFinalScene);
+	        	}
+	        }); */
+	        
+	        btnCreate.setOnAction(e -> {
+	        	Main.stage.setScene(CreateAccountScene);	    
+	        });
+	     
+	        
+	        /*
+			createPage.getBtnAccCreate().setOnAction((event) -> {
+				createPage.CreateAccountAccess();
+				stage.setScene(manageBankScene);
+			});		*/
+		
+		
+		
+		
+		
+		
 		/*
 		btnCreate.setOnAction(e -> {
         });

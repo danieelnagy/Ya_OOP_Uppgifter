@@ -4,36 +4,45 @@ import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import javafx.geometry.HPos;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 
-class CreateAccountPage {
+class CreateAccountPage extends VBox {
 
+	BankPage bankPage;
 	static ArrayList<Konto> list = new ArrayList<>();
 	private SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd 'at' HH:mm:ss z");
 	private Date dateNow = new Date(System.currentTimeMillis());
 	private String time;
 	private int amountInsertMoney = 0;
 	private Functions functions;
-	private Button btnInsert, btnDone, btnAccCreate;
+	private Button btnInsert,btnAccCreate;
 	private Label account, balanceLabel, pin, money, balanceShow;
 	private GridPane grid;
 	private HBox hbox;
 	private TextField name, pinText, moneyText;
 	private VBox vbox;
 	private Konto konto;
+	private Main main;
 
 	public CreateAccountPage() {
 		Styles();
 	}
 
 	void Styles() {
+		main = new Main();
 		vbox = new VBox();
 		functions = new Functions();
+		
+		/* Scene */
+		bankPage = new BankPage();
+		Scene manageBankScene = new Scene(bankPage.getVbox());
 
 		/* Labels */
 		account = new Label("Account owner: ");
@@ -58,12 +67,9 @@ class CreateAccountPage {
 		btnAccCreate = new Button("Create Account");
 		btnAccCreate = functions.ButtonStyle(btnAccCreate);
 
-		btnDone = new Button("Done");
-		btnDone = functions.ButtonStyle(btnDone);
-
 		/* HBOX */
 		hbox = new HBox();
-		hbox.getChildren().addAll(btnAccCreate, btnInsert, btnDone);
+		hbox.getChildren().addAll(btnAccCreate, btnInsert);
 
 		/* Grid */
 		grid = new GridPane();
@@ -98,20 +104,23 @@ class CreateAccountPage {
 			amountInsertMoney = amountInsertMoney + Integer.parseInt(moneyText.getText());
 			balanceShow.setText(String.valueOf(amountInsertMoney) + " kr");
 		});
-
-		btnAccCreate.setOnAction((event) -> {
-
-			if (name.getText().equals("") || pinText.getText().equals("")) {
-				;
-			} else {
-				time = getDate(time);
-				konto = new Konto(name.getText(), time , pinText.getText(), amountInsertMoney);
-				list.add(konto);
-			}
-		});
 		
+        btnAccCreate.setOnAction(e -> {
+        	CreateAccountAccess();
+        	Main.stage.setScene(manageBankScene);	    
+        });
+
 	}
 	
+	void CreateAccountAccess() {
+		if (name.getText().equals("") || pinText.getText().equals("")) {
+			;
+		} else {
+			time = getDate(time);
+			konto = new Konto(name.getText(), time , pinText.getText(), amountInsertMoney);
+			list.add(konto);
+		}
+	}
 
 	String getDate(String time) {
 		time = (formatter.format(dateNow));
@@ -125,15 +134,6 @@ class CreateAccountPage {
 	public void setVbox(VBox vbox) {
 		this.vbox = vbox;
 	}
-
-	public Button getBtnDone() {
-		return btnDone;
-	}
-
-	public void setBtnDone(Button btnDone) {
-		this.btnDone = btnDone;
-	}
-
 	public Button getBtnInsert() {
 		return btnInsert;
 	}
@@ -144,6 +144,14 @@ class CreateAccountPage {
 
 	public void setAmountInsertMoney(int amountInsertMoney) {
 		this.amountInsertMoney = amountInsertMoney;
+	}
+
+	public Button getBtnAccCreate() {
+		return btnAccCreate;
+	}
+
+	public void setBtnAccCreate(Button btnAccCreate) {
+		this.btnAccCreate = btnAccCreate;
 	}
 	
 }

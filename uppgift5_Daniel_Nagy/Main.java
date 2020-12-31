@@ -18,10 +18,9 @@ public class Main extends Application {
 	Save save = new Save();
 	Serialization ser = new Serialization();
 	*/
-	private Stage stage;
+	static Stage stage;
 	private LoginPage loginPage;
-	private CreateAccountPage createPage;
-	private Scene scene;
+	static Scene scene;
 
 	public static void main(String[] args) {
 		launch(args);
@@ -33,28 +32,6 @@ public class Main extends Application {
 		loginPage = new LoginPage();
 		stage = primaryStage;
 		scene = new Scene(loginPage.getGrid(), 400, 200);
-		
-		/* CreateAccountScene */ 
-		createPage = new CreateAccountPage();
-		Scene CreateAccountScene = new Scene(createPage.getVbox());
-		
-		/* LoginScene Events */
-		/*
-	        sceneOne.getLogin().setOnAction((e) -> {
-	        	b = sceneOne.Access(b);
-	        	if(b == true) {
-	        		stage.setScene(finalFinalScene);
-	        	}
-	        }); */
-	        
-	        loginPage.getBtnCreate().setOnAction(e -> {
-	        	stage.setScene(CreateAccountScene);
-	        	
-	        });
-		
-		
-		
-		
 		stage.setScene(scene);
 		primaryStage.show();
 		
@@ -89,6 +66,7 @@ public class Main extends Application {
         primaryStage.show();
         */
     }
+	
 
 	public Stage getStage() {
 		return stage;
@@ -97,13 +75,6 @@ public class Main extends Application {
 	public void setStage(Stage stage) {
 		this.stage = stage;
 	}
-
-	public Scene getScene() {
-		return scene;
-	}
-
-	public void setScene(Scene scene) {
-		this.scene = scene;
-	}
+	
 	
 }
