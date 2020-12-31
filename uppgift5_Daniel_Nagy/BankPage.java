@@ -14,7 +14,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
-class BankPage {
+public class BankPage {
 
 	Serialization seri;
 	private SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd 'at' HH:mm:ss z");
@@ -35,8 +35,8 @@ class BankPage {
 	public BankPage() {
 		bankStyles();
 	}
-
-	void bankStyles() {
+	
+    void bankStyles() {
 		seri = new Serialization();
 		ListView<String> angryMe = new ListView<String>();
 		vbox = new VBox();
@@ -80,9 +80,9 @@ class BankPage {
 		grid = functions.GridStyleSceneTwo(grid);
 
 		grid.add(account, 0, 0);
-		GridPane.setHalignment(account, HPos.CENTER);
-		account.setMaxSize(300, 50);
-
+		GridPane.setHalignment(account, HPos.LEFT);
+		grid.add(accountShow, 0, 0);
+		GridPane.setHalignment(accountShow, HPos.CENTER);
 		grid.add(balanceLabel, 0, 1);
 		grid.add(balanceShow, 0, 1);
 		balanceShow.setText(String.valueOf(balance) + " kr");
@@ -132,8 +132,7 @@ class BankPage {
 			}
 		});
 	}
-
-	
+		
 	public VBox getVbox() {
 		return vbox;
 	}
@@ -170,5 +169,4 @@ class BankPage {
 	public void setBalance(int balance) {
 		this.balance = balance;
 	}
-	
 }

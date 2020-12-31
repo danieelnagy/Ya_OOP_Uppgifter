@@ -13,8 +13,8 @@ import javafx.scene.layout.GridPane;
 
 class LoginPage {
 	
-	BankPage bankPage;
-	Main main;
+	private BankPage bankPage;
+	private Serialization ser;
 	private CreateAccountPage createPage;
 	private Functions functions;
 	private Button btnCreate, btnLogin;
@@ -23,7 +23,7 @@ class LoginPage {
 	private Label pin;
 	private GridPane grid;
 	private FlowPane flow;
-	static public int index = 0;
+	private Boolean b = false;
 	String accName;
 	String pw;
 
@@ -32,8 +32,10 @@ class LoginPage {
 	}
 
 	void Style() {
-		bankPage = new BankPage();
-		main = new Main();
+		
+		//bankPage = new BankPage();
+		ser = new Serialization();
+		CreateAccountPage.list = ser.deserializeFromXML(CreateAccountPage.list);
 		functions = new Functions();
 		
 		btnCreate = new Button("Create account");
@@ -61,12 +63,12 @@ class LoginPage {
 		GridPane.setHalignment(pin, HPos.CENTER);
 
 		/* Buttons */
-		GridPane.setHalignment(btnCreate, HPos.CENTER);
+		GridPane.setHalignment(btnCreate, HPos.LEFT);
 		btnCreate.setMinWidth(100);
-		GridPane.setMargin(btnCreate, new Insets(20, 80, 20, 20));
+		GridPane.setMargin(btnCreate, new Insets(50, 50, 50, 50));
 		GridPane.setHalignment(btnLogin, HPos.RIGHT);
 		btnLogin.setMinWidth(100);
-		GridPane.setMargin(btnLogin, new Insets(20, 20, 80, 20));
+		GridPane.setMargin(btnLogin, new Insets(50, 50, 50, 50));
 
 		/* Grid */
 		grid = new GridPane();
@@ -89,48 +91,27 @@ class LoginPage {
 		
 		
 		/* LoginScene Events */
-		/*
-	        sceneOne.getLogin().setOnAction((e) -> {
-	        	b = sceneOne.Access(b);
+		
+	        btnLogin.setOnAction((e) -> {
+	        	b = Access(b);
 	        	if(b == true) {
-	        		stage.setScene(finalFinalScene);
+	        		Main.stage.setScene(manageBankScene);
+	        		TEST test = new TEST();
+	        		test.asd();
 	        	}
-	        }); */
+	        });
 	        
 	        btnCreate.setOnAction(e -> {
 	        	Main.stage.setScene(CreateAccountScene);	    
 	        });
-	     
-	        
-	        /*
-			createPage.getBtnAccCreate().setOnAction((event) -> {
-				createPage.CreateAccountAccess();
-				stage.setScene(manageBankScene);
-			});		*/
-		
-		
-		
-		
-		
-		
-		/*
-		btnCreate.setOnAction(e -> {
-        });
-		/*
-        btnLogin.setOnAction((e) -> {
-        	b = sceneOne.Access(b);
-        	if(b == true) {
-        		stage.setScene(finalFinalScene);
-        	}
-        }); */
 	}
-	/*
+	
 	Boolean Access(Boolean b) {
 		accName = userNameField.getText();
 		pw = pwField.getText();
 		for(int i = 0;i < CreateAccountPage.list.size();i++) {
 		if(accName.equals(CreateAccountPage.list.get(i).getUserName()) && pw.equals(CreateAccountPage.list.get(i).getPassword())) {
-			bankPage.setUserName(CreateAccountPage.list.get(i).getUserName());
+			bankPage.setOwner(CreateAccountPage.list.get(i).getUserName());
 			bankPage.setBalance(CreateAccountPage.list.get(i).getBalance());
 			b = true;
 		} else {
@@ -139,7 +120,7 @@ class LoginPage {
 		}
 		return b;
 	}
-	*/
+	
 	String AccName(String userName) {
 		userName = userNameField.getText();
 		return userName;

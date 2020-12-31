@@ -1,5 +1,6 @@
 package uppgift5_Daniel_Nagy;
 
+import java.io.IOException;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -15,7 +16,7 @@ import javafx.stage.Stage;
 
 class CreateAccountPage extends VBox {
 
-	BankPage bankPage;
+	Serialization ser = new Serialization();
 	static ArrayList<Konto> list = new ArrayList<>();
 	private SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd 'at' HH:mm:ss z");
 	private Date dateNow = new Date(System.currentTimeMillis());
@@ -39,10 +40,6 @@ class CreateAccountPage extends VBox {
 		main = new Main();
 		vbox = new VBox();
 		functions = new Functions();
-		
-		/* Scene */
-		bankPage = new BankPage();
-		Scene manageBankScene = new Scene(bankPage.getVbox());
 
 		/* Labels */
 		account = new Label("Account owner: ");
@@ -106,8 +103,7 @@ class CreateAccountPage extends VBox {
 		});
 		
         btnAccCreate.setOnAction(e -> {
-        	CreateAccountAccess();
-        	Main.stage.setScene(manageBankScene);	    
+        	CreateAccountAccess();	    
         });
 
 	}
@@ -119,9 +115,15 @@ class CreateAccountPage extends VBox {
 			time = getDate(time);
 			konto = new Konto(name.getText(), time , pinText.getText(), amountInsertMoney);
 			list.add(konto);
+			try {
+				ser.serializeToXML(list);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			Main.stage.setScene(Main.scene);
 		}
 	}
-
+	
 	String getDate(String time) {
 		time = (formatter.format(dateNow));
 		return time;

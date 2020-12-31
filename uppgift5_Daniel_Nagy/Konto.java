@@ -13,7 +13,7 @@ public class Konto implements Serializable {
 	public Konto() {
 		
 	}
-
+	
 	public Konto(String userName, String date, String password, int balance) {
 		this.userName = userName;
 		this.date = date;
@@ -52,4 +52,6 @@ public class Konto implements Serializable {
 	public void setBalance(int balance) {
 		this.balance = balance;
 	}
+	
+	
 }
