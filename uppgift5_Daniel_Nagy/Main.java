@@ -10,7 +10,7 @@ import javafx.stage.Stage;
 
 public class Main extends Application {
 
-	Serialization ser = new Serialization();
+	private Serialization ser = new Serialization();
 	static Stage stage;
 	private LoginPage loginPage;
 	static Scene scene;

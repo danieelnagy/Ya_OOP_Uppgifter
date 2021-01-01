@@ -25,14 +25,14 @@ class Serialization {
 		XMLDecoder decoder = null;
 			try {
 				decoder = new XMLDecoder(new BufferedInputStream(new FileInputStream(SERIALIZED_FILE_NAME)));
+				System.out.println("File stream opened and XMLDecoder created");
+				System.out.println("Reading Object...");
+				getAccAndPw = (ArrayList<Konto>) decoder.readObject();
+				System.out.println("Reading Object Done!");
+				decoder.close();
 			} catch (FileNotFoundException e) {
-				e.printStackTrace();
+				System.out.println(SERIALIZED_FILE_NAME + " not found");
 			}
-			System.out.println("File stream opened and XMLDecoder created");
-			System.out.println("Reading Object...");
-			getAccAndPw = (ArrayList<Konto>) decoder.readObject();
-			System.out.println("Reading Object Done!");
-			decoder.close();
 			return getAccAndPw;
 	}
 }

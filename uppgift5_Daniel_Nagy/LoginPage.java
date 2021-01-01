@@ -14,7 +14,6 @@ import javafx.scene.layout.GridPane;
 class LoginPage {
 	
 	private BankPage bankPage;
-	private Serialization ser;
 	private CreateAccountPage createPage;
 	private Functions functions;
 	private Button btnCreate, btnLogin;
@@ -23,7 +22,6 @@ class LoginPage {
 	private Label pin;
 	private GridPane grid;
 	private FlowPane flow;
-	private Boolean b = false;
 	private String accName;
 	private String pw;
 	static int index = 0;
@@ -33,8 +31,6 @@ class LoginPage {
 	}
 
 	void Style() {
-		
-		//bankPage = new BankPage();
 		functions = new Functions();
 		
 		btnCreate = new Button("Create account");
@@ -77,16 +73,9 @@ class LoginPage {
 		grid.add(btnCreate, 0, 2);
 		grid.add(btnLogin, 0, 2);
 		
-		
-		/* Events */
-		
 		/* CreateAccountScene */ 
 		createPage = new CreateAccountPage();
 		Scene CreateAccountScene = new Scene(createPage.getVbox());
-		
-		/* BankPage */
-
-		
 		
 		/* LoginScene Events */
 		
@@ -95,7 +84,9 @@ class LoginPage {
 	    		pw = pwField.getText();
 	    		for(int i = 0; i < CreateAccountPage.list.size();i++) {
 	    			if(accName.equals(CreateAccountPage.list.get(i).getUserName()) && pw.equals(CreateAccountPage.list.get(i).getPassword())) {
+	    				index = i;
 	    				bankPage = new BankPage(CreateAccountPage.list.get(i));
+	    				BankPage.angryMe.getItems().addAll(CreateAccountPage.list.get(i).getKvittoList());
 	    				Scene manageBankScene = new Scene(bankPage.getVbox());
 	    				Main.stage.setScene(manageBankScene);
 	    				break;
@@ -109,33 +100,6 @@ class LoginPage {
 	        	Main.stage.setScene(CreateAccountScene);	    
 	        });
 	}
-	
-	Boolean Access(Boolean b) {
-		accName = userNameField.getText();
-		pw = pwField.getText();
-		for(int i = 0; i < CreateAccountPage.list.size();i++) {
-			if(accName.equals(CreateAccountPage.list.get(i).getUserName()) && pw.equals(CreateAccountPage.list.get(i).getPassword())) {
-				b = true;
-				bankPage.setKonto(CreateAccountPage.list.get(i));
-				bankPage.bankStyles();
-				index = i;
-				break;
-			} else {
-				b = false;
-			}
-		}
-		return b;
-	}
-	
-	String AccName(String userName) {
-		userName = userNameField.getText();
-		return userName;
-	}
-	String Password(String password) {
-		password = pwField.getText();
-		return password;
-	}
-
 	public GridPane getGrid() {
 		return grid;
 	}

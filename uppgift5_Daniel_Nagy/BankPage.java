@@ -1,6 +1,5 @@
 package uppgift5_Daniel_Nagy;
 
-import java.io.IOException;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
 import javafx.geometry.HPos;
@@ -11,24 +10,23 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
 public class BankPage {
 
-	Serialization seri;
-	Konto konto;
+	private Serialization seri;
+	private Konto konto;
+	static ListView<String> angryMe;
 	private SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd 'at' HH:mm:ss z");
 	private Date dateNow = new Date(System.currentTimeMillis());
 	private String time;
 	private String owner;
-	FlowPane flow;
+	private FlowPane flow;
     private int balance;
 	private Functions functions;
-	private Button btnInsert, btnTakeOut, btnKvitto, btnSerialize;
+	private Button btnInsert, btnTakeOut;
 	private Label account, accountShow, balanceLabel, takeOut, money, balanceShow;
 	private GridPane grid;
-	private HBox hbox;
 	private TextField takeOutText, moneyText;
 	private VBox vbox;
 
@@ -40,7 +38,7 @@ public class BankPage {
 	
     public void bankStyles() {
 		seri = new Serialization();
-		ListView<String> angryMe = new ListView<String>();
+		angryMe = new ListView<String>();
 		vbox = new VBox();
 		functions = new Functions();
 
@@ -67,7 +65,6 @@ public class BankPage {
 
 		btnTakeOut = new Button("Take out money");
 		btnTakeOut = functions.ButtonStyle(btnTakeOut);
-
 		
 		/* FlowPane */
 		flow = new FlowPane();
@@ -111,6 +108,8 @@ public class BankPage {
 			balanceShow.setText(String.valueOf(balance) + " kr");
 			time = getDate(time);
 			angryMe.getItems().add(time + " took out this much cash: " + Integer.parseInt(takeOutText.getText()) + " kr");
+			CreateAccountPage.list.get(LoginPage.index).getKvittoList().add(
+					time + " took out this much cash: " + Integer.parseInt(takeOutText.getText()) + " kr");
 			konto.setBalance(balance);
 			} else {
 				balanceShow.setText("DENIED, TOO LOW BALANCE, try again with less money." + " Current balance: " + String.valueOf(balance) + " kr");
@@ -122,6 +121,8 @@ public class BankPage {
 			balanceShow.setText(String.valueOf(balance) + " kr");
 			time = getDate(time + "");
 			angryMe.getItems().add(time + " inserted this much money: " + Integer.parseInt(moneyText.getText()) + " kr");
+			CreateAccountPage.list.get(LoginPage.index).getKvittoList().add(
+					time + " inserted this much money: " + Integer.parseInt(moneyText.getText()) + " kr");
 			konto.setBalance(balance);
 		});
 	}
@@ -133,43 +134,8 @@ public class BankPage {
 	public void setVbox(VBox vbox) {
 		this.vbox = vbox;
 	}
-
-	public Button getBtnKvitto() {
-		return btnKvitto;
-	}
-
-	public void setBtnKvitto(Button btnKvitto) {
-		this.btnKvitto = btnKvitto;
-	}
-
 	String getDate(String time) {
 		time = (formatter.format(dateNow));
 		return time;
-	}
-
-	public String getOwner() {
-		return owner;
-	}
-
-	public void setOwner(String owner) {
-		this.owner = owner;
-	}
-
-	public int getBalance() {
-		return balance;
-	}
-
-	public void setBalance(int balance) {
-		this.balance = balance;
-	}
-
-	public Konto getKonto() {
-		return konto;
-	}
-
-	public void setKonto(Konto konto) {
-		this.konto = konto;
-		owner = konto.getUserName();
-		balance = konto.getBalance();
 	}
 }

@@ -1,8 +1,10 @@
 package uppgift5_Daniel_Nagy;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 import javafx.collections.ObservableList;
+import javafx.scene.control.ListView;
 import uppgift4_Daniel_Nagy.Person;
 
 public class Konto implements Serializable {
@@ -12,17 +14,18 @@ public class Konto implements Serializable {
 	private String date;
 	private String password;
 	private int balance;
-	private ObservableList<String> list;
+	private ArrayList<String> kvittoList = new ArrayList<String>();
 	
 	public Konto() {
 		
 	}
 	
-	public Konto(String userName, String date, String password, int balance) {
+	public Konto(String userName, String date, String password, int balance, ArrayList<String> kvittoList) {
 		this.userName = userName;
 		this.date = date;
 		this.password = password;
 		this.balance = balance;
+		this.kvittoList = kvittoList;
 	}
 
 	public String getUserName() {
@@ -56,6 +59,12 @@ public class Konto implements Serializable {
 	public void setBalance(int balance) {
 		this.balance = balance;
 	}
-	
-	
+
+	public ArrayList<String> getKvittoList() {
+		return kvittoList;
+	}
+
+	public void setKvittoList(ArrayList<String> kvittoList) {
+		this.kvittoList = kvittoList;
+	}
 }

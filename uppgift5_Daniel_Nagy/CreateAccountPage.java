@@ -5,19 +5,18 @@ import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import javafx.geometry.HPos;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
 
 class CreateAccountPage extends VBox {
 
 	Serialization ser = new Serialization();
 	static ArrayList<Konto> list = new ArrayList<>();
+	private ArrayList<String> baseKvittoList = new ArrayList<>();
 	private SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd 'at' HH:mm:ss z");
 	private Date dateNow = new Date(System.currentTimeMillis());
 	private String time;
@@ -30,14 +29,12 @@ class CreateAccountPage extends VBox {
 	private TextField name, pinText, moneyText;
 	private VBox vbox;
 	private Konto konto;
-	private Main main;
 
 	public CreateAccountPage() {
 		Styles();
 	}
 
 	void Styles() {
-		main = new Main();
 		vbox = new VBox();
 		functions = new Functions();
 
@@ -100,6 +97,8 @@ class CreateAccountPage extends VBox {
 		btnInsert.setOnAction((event) -> {
 			amountInsertMoney = amountInsertMoney + Integer.parseInt(moneyText.getText());
 			balanceShow.setText(String.valueOf(amountInsertMoney) + " kr");
+			time = getDate(time);
+			baseKvittoList.add(time + " inserted this much money: " + Integer.parseInt(moneyText.getText()) + " kr");
 		});
 		
         btnAccCreate.setOnAction(e -> {
@@ -113,7 +112,8 @@ class CreateAccountPage extends VBox {
 			;
 		} else {
 			time = getDate(time);
-			konto = new Konto(name.getText(), time , pinText.getText(), amountInsertMoney);
+			baseKvittoList.add("Account created: " + time);
+			konto = new Konto(name.getText(), time , pinText.getText(), amountInsertMoney, baseKvittoList);
 			list.add(konto);
 			try {
 				ser.serializeToXML(list);
