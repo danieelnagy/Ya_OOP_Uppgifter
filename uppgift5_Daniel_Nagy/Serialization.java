@@ -12,7 +12,7 @@ import java.util.ArrayList;
 
 class Serialization {
 
-	private static final String SERIALIZED_FILE_NAME="readfileUppgift5".xml;
+	private static final String SERIALIZED_FILE_NAME="accountList.xml";
 	
 	void serializeToXML(ArrayList<Konto> s) throws IOException {
 		
@@ -21,18 +21,18 @@ class Serialization {
 		e.close();
 	}
 	
-	ArrayList<Konto> deserializeFromXML() {
+	ArrayList<Konto> deserializeFromXML(ArrayList<Konto> getAccAndPw) {
 		XMLDecoder decoder = null;
 			try {
 				decoder = new XMLDecoder(new BufferedInputStream(new FileInputStream(SERIALIZED_FILE_NAME)));
+				System.out.println("File stream opened and XMLDecoder created");
+				System.out.println("Reading Object...");
+				getAccAndPw = (ArrayList<Konto>) decoder.readObject();
+				System.out.println("Reading Object Done!");
+				decoder.close();
 			} catch (FileNotFoundException e) {
-				e.printStackTrace();
+				System.out.println(SERIALIZED_FILE_NAME + " not found");
 			}
-			System.out.println("File stream opened and XMLDecoder created");
-			System.out.println("Reading Object...");
-			ArrayList<Konto> getAccAndPw = (ArrayList<Konto>) decoder.readObject();
-			System.out.println("Reading Object Done!");
-			decoder.close();
 			return getAccAndPw;
 	}
 }

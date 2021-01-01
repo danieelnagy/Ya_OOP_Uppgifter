@@ -1,6 +1,5 @@
 package uppgift5_Daniel_Nagy;
 
-import java.io.IOException;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
 import javafx.geometry.HPos;
@@ -11,40 +10,44 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
-class SceneThree {
+public class BankPage {
 
-	Serialization seri;
+	private Serialization seri;
+	private Konto konto;
+	static ListView<String> angryMe;
 	private SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd 'at' HH:mm:ss z");
 	private Date dateNow = new Date(System.currentTimeMillis());
 	private String time;
-	FlowPane flow;
-	private String userName;
-    int balance;
-	private int amountInsertMoney = 0;
+	private String owner;
+	private FlowPane flow;
+    private int balance;
 	private Functions functions;
-	private Button btnInsert, btnTakeOut, btnKvitto, btnSerialize;
-	private Label account, balanceLabel, takeOut, money, balanceShow;
+	private Button btnInsert, btnTakeOut;
+	private Label account, accountShow, balanceLabel, takeOut, money, balanceShow;
 	private GridPane grid;
-	private HBox hbox;
 	private TextField takeOutText, moneyText;
 	private VBox vbox;
 
-	public SceneThree() {
-		Styles();
+	public BankPage(Konto konto) {
+		this.konto = konto;
+		bankStyles();
 	}
-
-	void Styles() {
+	
+	
+    public void bankStyles() {
 		seri = new Serialization();
-		ListView<String> angryMe = new ListView<String>();
+		angryMe = new ListView<String>();
 		vbox = new VBox();
 		functions = new Functions();
 
 		/* Labels */
-		account = new Label(userName);
+		account = new Label("Owner: ");
+		owner = konto.getUserName();
+		accountShow = new Label(owner);
 		balanceLabel = new Label("Balance: ");
+		balance = konto.getBalance();
 		balanceShow = new Label(String.valueOf(balance));
 		takeOut = new Label("Take money out");
 		money = new Label("Money to insert: ");
@@ -62,26 +65,20 @@ class SceneThree {
 
 		btnTakeOut = new Button("Take out money");
 		btnTakeOut = functions.ButtonStyle(btnTakeOut);
-
-		btnKvitto = new Button("Kvitto");
-		btnKvitto = functions.ButtonStyle(btnKvitto);
-		
-		btnSerialize = new Button("Save");
-		btnSerialize = functions.ButtonStyle(btnSerialize);
 		
 		/* FlowPane */
 		flow = new FlowPane();
 		flow.setAlignment(Pos.CENTER);
-		flow.getChildren().addAll(btnInsert,btnTakeOut,btnKvitto,btnSerialize);
+		flow.getChildren().addAll(btnInsert,btnTakeOut);
 
 		/* Grid */
 		grid = new GridPane();
 		grid = functions.GridStyleSceneTwo(grid);
 
 		grid.add(account, 0, 0);
-		GridPane.setHalignment(account, HPos.CENTER);
-		account.setMaxSize(300, 50);
-
+		GridPane.setHalignment(account, HPos.LEFT);
+		grid.add(accountShow, 0, 0);
+		GridPane.setHalignment(accountShow, HPos.CENTER);
 		grid.add(balanceLabel, 0, 1);
 		grid.add(balanceShow, 0, 1);
 		balanceShow.setText(String.valueOf(balance) + " kr");
@@ -105,34 +102,31 @@ class SceneThree {
 		/* Events */
 
 		btnTakeOut.setOnAction((event) -> {
-			amountInsertMoney = amountInsertMoney - Integer.parseInt(takeOutText.getText());
-			balanceShow.setText(String.valueOf(amountInsertMoney) + " kr");
+			if(balance > Integer.parseInt(takeOutText.getText())) {
+				
+			balance = balance - Integer.parseInt(takeOutText.getText());
+			balanceShow.setText(String.valueOf(balance) + " kr");
 			time = getDate(time);
 			angryMe.getItems().add(time + " took out this much cash: " + Integer.parseInt(takeOutText.getText()) + " kr");
-		});
-		
-		btnTakeOut.setOnAction((event) -> {
-			amountInsertMoney = amountInsertMoney - Integer.parseInt(takeOutText.getText());
-			balanceShow.setText(String.valueOf(amountInsertMoney) + " kr");
-			time = getDate(time);
-		});
-
-		btnInsert.setOnAction((event) -> {
-			amountInsertMoney = amountInsertMoney + Integer.parseInt(moneyText.getText());
-			balanceShow.setText(String.valueOf(amountInsertMoney) + " kr");
-			time = getDate(time + "");
-			angryMe.getItems().add(time + " inserted this much money: " + Integer.parseInt(moneyText.getText()) + " kr");
-		});
-		btnSerialize.setOnAction((event) -> {
-			try {
-				seri.serializeToXML(SceneTwo.list);
-			} catch (IOException e) {
-				e.printStackTrace();
+			CreateAccountPage.list.get(LoginPage.index).getKvittoList().add(
+					time + " took out this much cash: " + Integer.parseInt(takeOutText.getText()) + " kr");
+			konto.setBalance(balance);
+			} else {
+				balanceShow.setText("DENIED, TOO LOW BALANCE, try again with less money." + " Current balance: " + String.valueOf(balance) + " kr");
 			}
 		});
+		
+		btnInsert.setOnAction((event) -> {
+			balance = balance + Integer.parseInt(moneyText.getText());
+			balanceShow.setText(String.valueOf(balance) + " kr");
+			time = getDate(time + "");
+			angryMe.getItems().add(time + " inserted this much money: " + Integer.parseInt(moneyText.getText()) + " kr");
+			CreateAccountPage.list.get(LoginPage.index).getKvittoList().add(
+					time + " inserted this much money: " + Integer.parseInt(moneyText.getText()) + " kr");
+			konto.setBalance(balance);
+		});
 	}
-
-	
+		
 	public VBox getVbox() {
 		return vbox;
 	}
@@ -140,42 +134,8 @@ class SceneThree {
 	public void setVbox(VBox vbox) {
 		this.vbox = vbox;
 	}
-
-	public Button getBtnKvitto() {
-		return btnKvitto;
-	}
-
-	public void setBtnKvitto(Button btnKvitto) {
-		this.btnKvitto = btnKvitto;
-	}
-
 	String getDate(String time) {
 		time = (formatter.format(dateNow));
 		return time;
 	}
-
-	public String getUserName() {
-		return userName;
-	}
-
-	public void setUserName(String userName) {
-		this.userName = userName;
-	}
-
-	public int getBalance() {
-		return balance;
-	}
-
-	public void setBalance(int balance) {
-		this.balance = balance;
-	}
-
-	public Label getAccount() {
-		return account;
-	}
-
-	public void setAccount(Label account) {
-		this.account = account;
-	}
-	
 }

@@ -1,5 +1,6 @@
 package uppgift5_Daniel_Nagy;
 
+import java.io.IOException;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -11,15 +12,17 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
-class SceneTwo {
+class CreateAccountPage extends VBox {
 
+	Serialization ser = new Serialization();
 	static ArrayList<Konto> list = new ArrayList<>();
+	private ArrayList<String> baseKvittoList = new ArrayList<>();
 	private SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd 'at' HH:mm:ss z");
 	private Date dateNow = new Date(System.currentTimeMillis());
 	private String time;
 	private int amountInsertMoney = 0;
 	private Functions functions;
-	private Button btnInsert, btnDone, btnAccCreate;
+	private Button btnInsert,btnAccCreate;
 	private Label account, balanceLabel, pin, money, balanceShow;
 	private GridPane grid;
 	private HBox hbox;
@@ -27,7 +30,7 @@ class SceneTwo {
 	private VBox vbox;
 	private Konto konto;
 
-	public SceneTwo() {
+	public CreateAccountPage() {
 		Styles();
 	}
 
@@ -58,12 +61,9 @@ class SceneTwo {
 		btnAccCreate = new Button("Create Account");
 		btnAccCreate = functions.ButtonStyle(btnAccCreate);
 
-		btnDone = new Button("Done");
-		btnDone = functions.ButtonStyle(btnDone);
-
 		/* HBOX */
 		hbox = new HBox();
-		hbox.getChildren().addAll(btnAccCreate, btnInsert, btnDone);
+		hbox.getChildren().addAll(btnAccCreate, btnInsert);
 
 		/* Grid */
 		grid = new GridPane();
@@ -97,22 +97,33 @@ class SceneTwo {
 		btnInsert.setOnAction((event) -> {
 			amountInsertMoney = amountInsertMoney + Integer.parseInt(moneyText.getText());
 			balanceShow.setText(String.valueOf(amountInsertMoney) + " kr");
-		});
-
-		btnAccCreate.setOnAction((event) -> {
-
-			if (name.getText().equals("") || pinText.getText().equals("")) {
-				;
-			} else {
-				time = getDate(time);
-				konto = new Konto(name.getText(), time , pinText.getText(), amountInsertMoney);
-				list.add(konto);
-			}
+			time = getDate(time);
+			baseKvittoList.add(time + " inserted this much money: " + Integer.parseInt(moneyText.getText()) + " kr");
 		});
 		
+        btnAccCreate.setOnAction(e -> {
+        	CreateAccountAccess();	    
+        });
+
 	}
 	
-
+	void CreateAccountAccess() {
+		if (name.getText().equals("") || pinText.getText().equals("")) {
+			;
+		} else {
+			time = getDate(time);
+			baseKvittoList.add("Account created: " + time);
+			konto = new Konto(name.getText(), time , pinText.getText(), amountInsertMoney, baseKvittoList);
+			list.add(konto);
+			try {
+				ser.serializeToXML(list);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			Main.stage.setScene(Main.scene);
+		}
+	}
+	
 	String getDate(String time) {
 		time = (formatter.format(dateNow));
 		return time;
@@ -125,15 +136,6 @@ class SceneTwo {
 	public void setVbox(VBox vbox) {
 		this.vbox = vbox;
 	}
-
-	public Button getBtnDone() {
-		return btnDone;
-	}
-
-	public void setBtnDone(Button btnDone) {
-		this.btnDone = btnDone;
-	}
-
 	public Button getBtnInsert() {
 		return btnInsert;
 	}
@@ -144,6 +146,14 @@ class SceneTwo {
 
 	public void setAmountInsertMoney(int amountInsertMoney) {
 		this.amountInsertMoney = amountInsertMoney;
+	}
+
+	public Button getBtnAccCreate() {
+		return btnAccCreate;
+	}
+
+	public void setBtnAccCreate(Button btnAccCreate) {
+		this.btnAccCreate = btnAccCreate;
 	}
 	
 }
