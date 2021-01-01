@@ -2,6 +2,9 @@ package uppgift5_Daniel_Nagy;
 
 import java.io.Serializable;
 
+import javafx.collections.ObservableList;
+import uppgift4_Daniel_Nagy.Person;
+
 public class Konto implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
@@ -9,6 +12,7 @@ public class Konto implements Serializable {
 	private String date;
 	private String password;
 	private int balance;
+	private ObservableList<String> list;
 	
 	public Konto() {
 		

@@ -17,13 +17,13 @@ import javafx.scene.layout.VBox;
 public class BankPage {
 
 	Serialization seri;
+	Konto konto;
 	private SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd 'at' HH:mm:ss z");
 	private Date dateNow = new Date(System.currentTimeMillis());
 	private String time;
 	private String owner;
 	FlowPane flow;
     private int balance;
-	private int amountInsertMoney = 0;
 	private Functions functions;
 	private Button btnInsert, btnTakeOut, btnKvitto, btnSerialize;
 	private Label account, accountShow, balanceLabel, takeOut, money, balanceShow;
@@ -32,11 +32,13 @@ public class BankPage {
 	private TextField takeOutText, moneyText;
 	private VBox vbox;
 
-	public BankPage() {
+	public BankPage(Konto konto) {
+		this.konto = konto;
 		bankStyles();
 	}
 	
-    void bankStyles() {
+	
+    public void bankStyles() {
 		seri = new Serialization();
 		ListView<String> angryMe = new ListView<String>();
 		vbox = new VBox();
@@ -44,8 +46,10 @@ public class BankPage {
 
 		/* Labels */
 		account = new Label("Owner: ");
+		owner = konto.getUserName();
 		accountShow = new Label(owner);
 		balanceLabel = new Label("Balance: ");
+		balance = konto.getBalance();
 		balanceShow = new Label(String.valueOf(balance));
 		takeOut = new Label("Take money out");
 		money = new Label("Money to insert: ");
@@ -64,16 +68,11 @@ public class BankPage {
 		btnTakeOut = new Button("Take out money");
 		btnTakeOut = functions.ButtonStyle(btnTakeOut);
 
-		btnKvitto = new Button("Kvitto");
-		btnKvitto = functions.ButtonStyle(btnKvitto);
-		
-		btnSerialize = new Button("Save");
-		btnSerialize = functions.ButtonStyle(btnSerialize);
 		
 		/* FlowPane */
 		flow = new FlowPane();
 		flow.setAlignment(Pos.CENTER);
-		flow.getChildren().addAll(btnInsert,btnTakeOut,btnKvitto,btnSerialize);
+		flow.getChildren().addAll(btnInsert,btnTakeOut);
 
 		/* Grid */
 		grid = new GridPane();
@@ -106,30 +105,24 @@ public class BankPage {
 		/* Events */
 
 		btnTakeOut.setOnAction((event) -> {
-			amountInsertMoney = amountInsertMoney - Integer.parseInt(takeOutText.getText());
-			balanceShow.setText(String.valueOf(amountInsertMoney) + " kr");
+			if(balance > Integer.parseInt(takeOutText.getText())) {
+				
+			balance = balance - Integer.parseInt(takeOutText.getText());
+			balanceShow.setText(String.valueOf(balance) + " kr");
 			time = getDate(time);
 			angryMe.getItems().add(time + " took out this much cash: " + Integer.parseInt(takeOutText.getText()) + " kr");
+			konto.setBalance(balance);
+			} else {
+				balanceShow.setText("DENIED, TOO LOW BALANCE, try again with less money." + " Current balance: " + String.valueOf(balance) + " kr");
+			}
 		});
 		
-		btnTakeOut.setOnAction((event) -> {
-			amountInsertMoney = amountInsertMoney - Integer.parseInt(takeOutText.getText());
-			balanceShow.setText(String.valueOf(amountInsertMoney) + " kr");
-			time = getDate(time);
-		});
-
 		btnInsert.setOnAction((event) -> {
-			amountInsertMoney = amountInsertMoney + Integer.parseInt(moneyText.getText());
-			balanceShow.setText(String.valueOf(amountInsertMoney) + " kr");
+			balance = balance + Integer.parseInt(moneyText.getText());
+			balanceShow.setText(String.valueOf(balance) + " kr");
 			time = getDate(time + "");
 			angryMe.getItems().add(time + " inserted this much money: " + Integer.parseInt(moneyText.getText()) + " kr");
-		});
-		btnSerialize.setOnAction((event) -> {
-			try {
-				seri.serializeToXML(CreateAccountPage.list);
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
+			konto.setBalance(balance);
 		});
 	}
 		
@@ -168,5 +161,15 @@ public class BankPage {
 
 	public void setBalance(int balance) {
 		this.balance = balance;
+	}
+
+	public Konto getKonto() {
+		return konto;
+	}
+
+	public void setKonto(Konto konto) {
+		this.konto = konto;
+		owner = konto.getUserName();
+		balance = konto.getBalance();
 	}
 }

@@ -24,8 +24,9 @@ class LoginPage {
 	private GridPane grid;
 	private FlowPane flow;
 	private Boolean b = false;
-	String accName;
-	String pw;
+	private String accName;
+	private String pw;
+	static int index = 0;
 
 	public LoginPage() {
 		Style();
@@ -34,8 +35,6 @@ class LoginPage {
 	void Style() {
 		
 		//bankPage = new BankPage();
-		ser = new Serialization();
-		CreateAccountPage.list = ser.deserializeFromXML(CreateAccountPage.list);
 		functions = new Functions();
 		
 		btnCreate = new Button("Create account");
@@ -86,19 +85,24 @@ class LoginPage {
 		Scene CreateAccountScene = new Scene(createPage.getVbox());
 		
 		/* BankPage */
-		bankPage = new BankPage();
-		Scene manageBankScene = new Scene(bankPage.getVbox());
+
 		
 		
 		/* LoginScene Events */
 		
 	        btnLogin.setOnAction((e) -> {
-	        	b = Access(b);
-	        	if(b == true) {
-	        		Main.stage.setScene(manageBankScene);
-	        		TEST test = new TEST();
-	        		test.asd();
-	        	}
+	        	accName = userNameField.getText();
+	    		pw = pwField.getText();
+	    		for(int i = 0; i < CreateAccountPage.list.size();i++) {
+	    			if(accName.equals(CreateAccountPage.list.get(i).getUserName()) && pw.equals(CreateAccountPage.list.get(i).getPassword())) {
+	    				bankPage = new BankPage(CreateAccountPage.list.get(i));
+	    				Scene manageBankScene = new Scene(bankPage.getVbox());
+	    				Main.stage.setScene(manageBankScene);
+	    				break;
+	    			} else {
+	    				;
+	    			}
+	    		}
 	        });
 	        
 	        btnCreate.setOnAction(e -> {
@@ -109,14 +113,16 @@ class LoginPage {
 	Boolean Access(Boolean b) {
 		accName = userNameField.getText();
 		pw = pwField.getText();
-		for(int i = 0;i < CreateAccountPage.list.size();i++) {
-		if(accName.equals(CreateAccountPage.list.get(i).getUserName()) && pw.equals(CreateAccountPage.list.get(i).getPassword())) {
-			bankPage.setOwner(CreateAccountPage.list.get(i).getUserName());
-			bankPage.setBalance(CreateAccountPage.list.get(i).getBalance());
-			b = true;
-		} else {
-			b = false;
-		}
+		for(int i = 0; i < CreateAccountPage.list.size();i++) {
+			if(accName.equals(CreateAccountPage.list.get(i).getUserName()) && pw.equals(CreateAccountPage.list.get(i).getPassword())) {
+				b = true;
+				bankPage.setKonto(CreateAccountPage.list.get(i));
+				bankPage.bankStyles();
+				index = i;
+				break;
+			} else {
+				b = false;
+			}
 		}
 		return b;
 	}

@@ -4,16 +4,48 @@
   <void method="add">
    <object class="uppgift5_Daniel_Nagy.Konto">
     <void property="balance">
-     <int>1555</int>
+     <int>1566</int>
     </void>
     <void property="date">
-     <string>2020-12-31 at 22:04:31 CET</string>
+     <string>2020-12-31 at 23:24:33 CET</string>
     </void>
     <void property="password">
-     <string>1111</string>
+     <string>ASD</string>
     </void>
     <void property="userName">
-     <string>Daniel</string>
+     <string>ASD</string>
+    </void>
+   </object>
+  </void>
+  <void method="add">
+   <object class="uppgift5_Daniel_Nagy.Konto">
+    <void property="balance">
+     <int>8232</int>
+    </void>
+    <void property="date">
+     <string>2020-12-31 at 23:26:15 CET</string>
+    </void>
+    <void property="password">
+     <string>ME</string>
+    </void>
+    <void property="userName">
+     <string>ME</string>
+    </void>
+   </object>
+  </void>
+  <void method="add">
+   <object class="uppgift5_Daniel_Nagy.Konto">
+    <void property="balance">
+     <int>1337</int>
+    </void>
+    <void property="date">
+     <string>2021-01-01 at 01:40:28 CET</string>
+    </void>
+    <void property="password">
+     <string>FINAL</string>
+    </void>
+    <void property="userName">
+     <string>FINALLY</string>
     </void>
    </object>
   </void>
