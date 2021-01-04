@@ -102,7 +102,7 @@ public class BankPage {
 		/* Events */
 
 		btnTakeOut.setOnAction((event) -> {
-			if(balance > Integer.parseInt(takeOutText.getText())) {
+			if(balance >= Integer.parseInt(takeOutText.getText())) {
 				
 			balance = balance - Integer.parseInt(takeOutText.getText());
 			balanceShow.setText(String.valueOf(balance) + " kr");
